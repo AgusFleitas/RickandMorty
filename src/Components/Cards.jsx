@@ -1,17 +1,11 @@
-import Card from './Card';
+import Card from "./Card";
 
 export default function Cards({characters, onClose}) {
-
-   return (
+  return (
     <div>
-      {characters.map((character) => {
-        return <Card 
-          key={character.id} 
-          id = {character.id}
-          {...character} 
-          onClose={onClose} 
-        />
-      })}
+      {characters.map((character) => (
+        <Card key={character.id} character={character} onClose={onClose} />
+      ))}
     </div>
-   );
+  );
 }
