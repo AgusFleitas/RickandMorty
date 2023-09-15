@@ -18,18 +18,19 @@ function App() {
   const navigate = useNavigate();
 
   const [access, setAccess] = useState(false);
-  const EMAIL = "agusfleitas@gmail.com";
-  const PASSWORD = "123456abc";
 
-  function loginHandler(userData) {
-    if (userData.password === PASSWORD && userData.email === EMAIL) {
-      setAccess(true);
-      navigate("/home");
-    }
+  async function loginHandler(userData) {
+    const { email, password } = userData;
+    const URL = 'http://localhost:3001/rickandmorty/login/';
+    const {data} = await axios(URL + `?email=${email}&password=${password}`)
+       const { access } = data;
+       setAccess(access);
+       access && navigate('/home');
   }
 
   function logoutHandler() {
     setAccess(false);
+    setCharacters([]);
   }
 
   useEffect(() => {
@@ -37,17 +38,14 @@ function App() {
     //eslint-disable-next-line
   }, [access]);
 
-  function searchHandler(id) {
-    if (!characters.some((character) => character.id === Number(id))) {
-      axios(
-        `http://localhost:3001/rickandmorty/character/${id}`
-      ).then(({ data }) => {
+  async function searchHandler(id) {
+    if (!characters.some((character) => character.id === id)) {
+      const {data} = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
         if (data.name) {
           setCharacters((oldChars) => [...oldChars, data]);
         } else {
           window.alert("¡No hay personajes con este ID!");
         }
-      });
     } else {
       alert("Este personaje ya fue agregado!");
       return;
@@ -56,7 +54,7 @@ function App() {
 
   function closeHandler(id) {
     let filteredCharacters = characters.filter(
-      (character) => character.id !== Number(id)
+      (character) => character.id !== id
     );
 
     setCharacters(filteredCharacters);
