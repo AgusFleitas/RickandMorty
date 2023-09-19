@@ -11,16 +11,10 @@ const postFav = (req, res) => {
 const deleteFav = (req, res) => {
   const { id } = req.params;
   myFavorites = myFavorites.filter(
-    (favorite) => favorite.id !== id
+    (favorite) => favorite.id !== Number(id)
   );
 
   return res.status(200).json(myFavorites);
 };
 
-const clearFav = (req, res) => {
-  myFavorites = [];
-
-  // res.status(200).json({message: "Favoritos limpiados correctamente."})
-}
-
-module.exports = { postFav, deleteFav, clearFav };
+module.exports = { postFav, deleteFav};

@@ -1,5 +1,4 @@
 const users = require("../utils/user");
-const { clearFav } = require("./handleFavorites");
 
 const Log = (req, res) => {
   const { email, password } = req.query;
@@ -8,12 +7,9 @@ const Log = (req, res) => {
     (user) => user.email === email && user.password === password
   );
 
-  if (userFound) {
-    res.status(200).json({ access: true });
-    clearFav(req, res);
-  } else {
-    res.status(200).json({ access: false });
-  }
+  const access = userFound ? true : false;
+
+  res.status(200).json({ access });
 };
 
 module.exports = { Log };

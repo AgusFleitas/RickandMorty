@@ -1,4 +1,10 @@
-import { ADD_FAV, REMOVE_FAV, FILTER, ORDER } from "./action-types";
+import {
+  ADD_FAV,
+  REMOVE_FAV,
+  FILTER,
+  ORDER,
+  RESET,
+} from "../actions/action-types";
 
 let initialState = { myfavorites: [], allCharacters: [] };
 
@@ -36,6 +42,12 @@ function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         myfavorites: [...sorted],
+      };
+
+    case RESET:
+      return {
+        ...state,
+        myfavorites: state.allCharacters,
       };
 
     default:

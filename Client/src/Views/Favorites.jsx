@@ -1,17 +1,21 @@
-import Cards from "./Cards";
+import Cards from "../Components/Cards";
 import { useSelector, useDispatch } from "react-redux";
-import { filterCards, orderCards } from "../redux/actions";
+import { filterCards, orderCards, reset } from "../redux/actions/actions";
 
 const Favorites = () => {
   const dispatch = useDispatch();
-  const favorites = useSelector((state) => state.myfavorites)
+  const favorites = useSelector((state) => state.myfavorites);
 
   const handleOrder = (event) => {
     dispatch(orderCards(event.target.value));
-  }
+  };
 
   const handleFilter = (event) => {
     dispatch(filterCards(event.target.value));
+  };
+
+  function resetHandler() {
+    dispatch(reset());
   }
 
   return (
@@ -30,17 +34,10 @@ const Favorites = () => {
           </option>
         ))}
       </select>
+      <button onClick={resetHandler}>Remove Filters</button>
       <Cards characters={favorites} />
     </div>
   );
 };
 
 export default Favorites;
-
-// const mapStateToProps = (state) => {
-//   return {
-//     myfavorites: state.myfavorites,
-//   };
-// };
-
-// export default connect(mapStateToProps, null)(Favorites);

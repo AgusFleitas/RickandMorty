@@ -7,16 +7,16 @@ const validate = (input) => {
   //   errors.email = "Enter your email";
   // }
   if (!emailRegex.test(input.email)) {
-    errors.email = "Ingrese un email válido.";
+    errors.email = "Invalid email";
   }
   if (input.email.length >= 35) {
-    errors.email = "El email debe contener menos de 35 caracteres.";
+    errors.email = "No more than 35 characters please";
   }
   if (!numbersRegex.test(input.password)) {
-    errors.password = "La contraseña debe tener al menos un número";
+    errors.password = "Password must contain a number";
   }
   if (input.password.length < 6 || input.password.length > 10) {
-    errors.password = "La contraseña debe contener de 6 a 10 caracteres.";
+    errors.password = "Passwors must be between 6 and 10 characters";
   }
 
   return errors;

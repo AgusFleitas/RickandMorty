@@ -2,15 +2,19 @@ import { useState, useEffect } from "react";
 import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 
+
 import Cards from "./Components/Cards.jsx";
 import Nav from "./Components/Nav.jsx";
-import Favorites from "./Components/Favorites.jsx";
 
+import Favorites from "./Views/Favorites.jsx";
 import About from "./Views/About.jsx";
 import Detail from "./Views/Detail.jsx";
 import Form from "./Views/Form.jsx";
+import ErrorPage from "./Views/ErrorPage.jsx"
 
 import "./App.css";
+
+
 
 function App() {
   const location = useLocation();
@@ -21,11 +25,11 @@ function App() {
 
   async function loginHandler(userData) {
     const { email, password } = userData;
-    const URL = 'http://localhost:3001/rickandmorty/login/';
-    const {data} = await axios(URL + `?email=${email}&password=${password}`)
-       const { access } = data;
-       setAccess(access);
-       access && navigate('/home');
+    const URL = "http://localhost:3001/rickandmorty/login/";
+    const { data } = await axios(URL + `?email=${email}&password=${password}`);
+    const { access } = data;
+    setAccess(access);
+    access && navigate("/home");
   }
 
   function logoutHandler() {
@@ -33,24 +37,33 @@ function App() {
     setCharacters([]);
   }
 
+  // 
+
   useEffect(() => {
     !access && navigate("/");
     //eslint-disable-next-line
   }, [access]);
 
+  // Add a character by ID on the SearchBar.
+
   async function searchHandler(id) {
-    if (!characters.some((character) => character.id === id)) {
-      const {data} = await axios(`http://localhost:3001/rickandmorty/character/${id}`)
-        if (data.name) {
-          setCharacters((oldChars) => [...oldChars, data]);
-        } else {
-          window.alert("¡No hay personajes con este ID!");
-        }
-    } else {
-      alert("Este personaje ya fue agregado!");
-      return;
+    try {
+      const { data } = await axios(
+        `http://localhost:3001/rickandmorty/character/${id}`
+      );
+
+      if (data.name) {
+        setCharacters((oldChars) => [...oldChars, data]);
+      } else {
+        throw new Error("¡No hay personajes con este ID!");
+      }
+    } catch (error) {
+      console.log(error);
+      alert(error.message);
     }
-  }
+  } 
+
+  // Delete character from Home.
 
   function closeHandler(id) {
     let filteredCharacters = characters.filter(
@@ -59,6 +72,8 @@ function App() {
 
     setCharacters(filteredCharacters);
   }
+
+  // Add a random character.
 
   function randomHandler() {
     let randomId = (Math.random() * 826).toFixed();
@@ -73,8 +88,10 @@ function App() {
     }
   }
 
+  // Render ↓
+
   return (
-    <div className="App">
+    <div className='App'>
       {location.pathname !== "/" && (
         <Nav
           onSearch={searchHandler}
@@ -83,15 +100,16 @@ function App() {
         />
       )}
       <Routes>
-        <Route path="/" element={<Form login={loginHandler} />} />
+        <Route path='/' element={<Form login={loginHandler} />} />
         <Route
-          path="/home"
+          path='/home'
           element={<Cards characters={characters} onClose={closeHandler} />}
         />
 
-        <Route path="/favorites" element={<Favorites />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/detail/:id" element={<Detail />} />
+        <Route path='/favorites' element={<Favorites />} />
+        <Route path='/about' element={<About />} />
+        <Route path='/detail/:id' element={<Detail />} />
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </div>
   );
