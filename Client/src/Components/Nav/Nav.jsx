@@ -1,9 +1,11 @@
-import SearchBar from "./SearchBar";
+import SearchBar from "../SearchBar/SearchBar";
 import { Link } from "react-router-dom";
+import style from "./Nav.module.css";
 
 const Nav = ({ onSearch, randomize, logout }) => {
   return (
-    <div>
+    <div className={style.navBar}>
+      <div className={style.interno}>
       <SearchBar onSearch={onSearch} />
       <button onClick={randomize}>Add Random</button>
       <Link to='/about'>
@@ -16,6 +18,7 @@ const Nav = ({ onSearch, randomize, logout }) => {
         <button>Favorites</button>
       </Link>
       <button onClick={logout}>Log Out</button>
+      </div>
     </div>
   );
 };

@@ -1,0 +1,10 @@
+.navBar {
+    display: grid;
+    justify-content: center;
+    height: 60px;
+    background-color: brown;
+}
+
+.interno {
+    
+}

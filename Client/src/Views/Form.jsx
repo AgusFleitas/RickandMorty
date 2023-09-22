@@ -1,7 +1,7 @@
 import { useState } from "react";
 import validate from "../Helpers/Validation";
 import "boxicons";
-import "./Form.css";
+import style from "./Form.module.css";
 
 import landingVideo from "../video/landing.mp4";
 
@@ -44,11 +44,11 @@ const Form = ({ login }) => {
   }
 
   return (
-    <div>
-      <div className='wrapper'>
+    <div className={style.Form}>
+      <div className={style.wrapper}>
         <form onSubmit={submitHandler}>
           <h1>Login</h1>
-          <div className='input-box'>
+          <div className={style.inputBox}>
             <input
               type='text'
               name='email'
@@ -59,7 +59,7 @@ const Form = ({ login }) => {
             <box-icon type='solid' name='user' color='white'></box-icon>
             <span>{errors.email}</span>
           </div>
-          <div className='input-box'>
+          <div className={style.inputBox}>
             <input
               type='password'
               name='password'
@@ -70,25 +70,25 @@ const Form = ({ login }) => {
             <box-icon name='lock-alt' type='solid' color='white'></box-icon>
             {errors.password && <span>{errors.password}</span>}
           </div>
-          <div className='remember-forgot'>
+          <div className={style.rememberForgot}>
             <label>
               <input type='checkbox' />
               Remember me
             </label>
             <a href='#'>Forgot password?</a>
           </div>
-          <button className='btn' disabled={disableHandler()} type='submit'>
+          <button className={style.btn} disabled={disableHandler()} type='submit'>
             Login
           </button>
-          <div className='register-link'>
+          <div className={style.registerLink}>
             <p>
-              Don't have and account? <a href='#'>Register</a>
+              Don't have an account? <a href='#'>Sign Up</a>
             </p>
           </div>
         </form>
       </div>
-      <div className="video-wrapper">
-        <video src={landingVideo} autoPlay muted loop className='bg-video' />
+      <div className={style.videoWrapper}>
+        <video src={landingVideo} autoPlay muted loop className={style.bgVideo} />
       </div>
     </div>
   );

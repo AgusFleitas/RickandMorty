@@ -4,16 +4,15 @@ import axios from "axios";
 
 
 import Cards from "./Components/Cards.jsx";
-import Nav from "./Components/Nav.jsx";
-
+import Nav from "./Components/Nav/Nav.jsx";
+  
 import Favorites from "./Views/Favorites.jsx";
 import About from "./Views/About.jsx";
 import Detail from "./Views/Detail.jsx";
 import Form from "./Views/Form.jsx";
 import ErrorPage from "./Views/ErrorPage.jsx"
 
-import "./App.css";
-
+import style from "./App.module.css";
 
 
 function App() {
@@ -91,7 +90,7 @@ function App() {
   // Render ↓
 
   return (
-    <div className='App'>
+    <div className={style.App}>
       {location.pathname !== "/" && (
         <Nav
           onSearch={searchHandler}
