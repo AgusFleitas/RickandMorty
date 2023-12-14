@@ -17,7 +17,7 @@ const Detail = () => {
            }
         });
         return setCharacter({});
-     }, []);
+     }, [id]);
 
     return (
         <div>

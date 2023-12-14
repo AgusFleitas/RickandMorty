@@ -9,8 +9,10 @@ import Nav from "./Components/Nav/Nav.jsx";
 import Favorites from "./Views/Favorites.jsx";
 import About from "./Views/About.jsx";
 import Detail from "./Views/Detail.jsx";
-import Form from "./Views/Form.jsx";
+import Landing from "./Views/Landing.jsx";
 import ErrorPage from "./Views/ErrorPage.jsx"
+import Register from "./Views/Register.jsx"
+
 
 import style from "./App.module.css";
 
@@ -35,13 +37,6 @@ function App() {
     setAccess(false);
     setCharacters([]);
   }
-
-  // 
-
-  useEffect(() => {
-    !access && navigate("/");
-    //eslint-disable-next-line
-  }, [access]);
 
   // Add a character by ID on the SearchBar.
 
@@ -91,7 +86,7 @@ function App() {
 
   return (
     <div className={style.App}>
-      {location.pathname !== "/" && (
+      {location.pathname !== "/" && location.pathname !== "/register" && (
         <Nav
           onSearch={searchHandler}
           randomize={randomHandler}
@@ -99,7 +94,8 @@ function App() {
         />
       )}
       <Routes>
-        <Route path='/' element={<Form login={loginHandler} />} />
+        <Route path='/' element={<Landing login={loginHandler} />} />
+        <Route path='/register' element={<Register />} />
         <Route
           path='/home'
           element={<Cards characters={characters} onClose={closeHandler} />}

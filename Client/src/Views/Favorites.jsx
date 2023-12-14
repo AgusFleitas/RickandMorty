@@ -34,7 +34,7 @@ const Favorites = () => {
           </option>
         ))}
       </select>
-      <button onClick={resetHandler}>Remove Filters</button>
+      <button onClick={resetHandler}>Clear filters</button>
       <Cards characters={favorites} />
     </div>
   );
