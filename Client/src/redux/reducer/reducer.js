@@ -1,4 +1,5 @@
 import {
+  SEARCH_BY_ID,
   ADD_FAV,
   REMOVE_FAV,
   FILTER,
@@ -11,6 +12,12 @@ let initialState = { myfavorites: [], allCharacters: [] };
 function rootReducer(state = initialState, { type, payload }) {
   let sorted;
   switch (type) {
+    case SEARCH_BY_ID:
+      return {
+        ...state,
+        allCharacters: payload,
+      };
+
     case ADD_FAV:
       return {
         ...state,

@@ -1,5 +1,30 @@
-import { ADD_FAV, REMOVE_FAV, FILTER, ORDER, RESET } from "./action-types";
+import {
+  SEARCH_BY_ID, 
+  ADD_FAV, 
+  REMOVE_FAV, 
+  FILTER, 
+  ORDER, 
+  RESET 
+} from "./action-types";
 import axios from "axios";
+
+export const searchById = (id) => {
+  const endpoint = `http://localhost:3001/rickandmorty/character/${id}`
+
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(endpoint, id)
+
+      return dispatch({
+        type: SEARCH_BY_ID,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+      alert("Ocurrió un error al buscar el personaje: " + error);
+    }
+  }
+}
 
 export const addFav = (character) => {
   const endpoint = "http://localhost:3001/rickandmorty/fav";
