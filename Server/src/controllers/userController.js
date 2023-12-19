@@ -1,14 +1,26 @@
 const { User } = require("../DB-Config");
 
-const createUserController = async (name, email, password, country) => {
-  const newUser = await User.create({
-    name,
-    email,
-    password,
-    country,
+const createUserController = async (newUserData) => {
+  const { name, email, password, country } = newUserData;
+
+  const verifyExist = await User.findOne({
+    where: {
+      email,
+    },
   });
 
-  return newUser;
+  if (verifyExist) {
+    throw new Error("There is already an account with that email address.");
+  } else {
+    const newUser = await User.create({
+      name,
+      email,
+      password,
+      country,
+    });
+
+    return newUser;
+  }
 };
 
 const loginUserController = async (email, password) => {
