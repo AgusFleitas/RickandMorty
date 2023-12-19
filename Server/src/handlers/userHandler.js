@@ -1,5 +1,6 @@
 const {
   createUserController,
+  loginUserController,
   resetPasswordController,
 } = require("../controllers/userController");
 
@@ -15,8 +16,10 @@ const createUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
+  const { email, password } = req.body
+
   try {
-    const response = await loginUserController();
+    const response = await loginUserController(email, password);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json({ Error: error.message });

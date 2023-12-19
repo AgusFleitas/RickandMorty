@@ -1,4 +1,5 @@
 const { User } = require("../DB-Config");
+const { encrypt, compare } = require("../helpers/handleBcrypt");
 
 const createUserController = async (newUserData) => {
   const { name, email, password, country } = newUserData;
@@ -12,10 +13,11 @@ const createUserController = async (newUserData) => {
   if (verifyExist) {
     throw new Error("There is already an account with that email address.");
   } else {
+    const hashPassword = await encrypt(password);
     const newUser = await User.create({
       name,
       email,
-      password,
+      password: hashPassword,
       country,
     });
 
@@ -30,8 +32,16 @@ const loginUserController = async (email, password) => {
     },
   });
 
-  if (password === userFound.password) {
-    return "Access successfully!";
+  if (!userFound) {
+    throw new Error("No account exists with that email.");
+  } else {
+    const checkPassword = await compare(password, userFound.password);
+
+    if (!checkPassword) {
+      throw new Error("Invalid password.");
+    } else {
+      return userFound;
+    }
   }
 };
 
