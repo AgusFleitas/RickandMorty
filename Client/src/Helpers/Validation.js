@@ -1,6 +1,6 @@
 const validate = (input) => {
   let errors = {};
-  let emailRegex = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/;
+  let emailRegex = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
   let numbersRegex = /\d/;
 
   // if (!input.email) {

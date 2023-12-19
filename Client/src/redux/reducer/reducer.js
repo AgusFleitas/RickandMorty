@@ -12,11 +12,20 @@ let initialState = { myfavorites: [], allCharacters: [] };
 function rootReducer(state = initialState, { type, payload }) {
   let sorted;
   switch (type) {
-    case SEARCH_BY_ID:
+    case SEARCH_BY_ID: {
+      let currentCharacters = state.allCharacters
+
+      if (currentCharacters.length >= 1) {
+        currentCharacters.push(payload)
+      } else {
+        currentCharacters = Array.isArray(payload) ? payload : [payload]
+      }
+
       return {
         ...state,
-        allCharacters: payload,
+        allCharacters: currentCharacters
       };
+    }
 
     case ADD_FAV:
       return {

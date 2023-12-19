@@ -1,10 +1,12 @@
 import Card from "./Card";
 
-export default function Cards({characters, onClose}) {
+
+export default function Cards({characters}) {
+  console.log(characters);
   return (
-    <div className="cardsDisplay">
+    <div>
       {characters.map((character) => (
-        <Card key={character.id} character={character} onClose={onClose} />
+        <Card key={character.id} character={character} />
       ))}
     </div>
   );

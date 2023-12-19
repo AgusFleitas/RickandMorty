@@ -18,7 +18,7 @@ function App() {
   const location = useLocation();
  
 
-  // const [access, setAccess] = useState(false);
+ 
 
   // Delete character from Home.
 

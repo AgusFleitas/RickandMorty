@@ -9,7 +9,7 @@ import {
 import axios from "axios";
 
 export const searchById = (id) => {
-  const endpoint = `http://localhost:3001/rickandmorty/character/${id}`
+  const endpoint = `http://localhost:3001/character/${id}`
 
   return async (dispatch) => {
     try {

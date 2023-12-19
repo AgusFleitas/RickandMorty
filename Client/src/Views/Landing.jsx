@@ -9,6 +9,8 @@ import validate from "../Helpers/Validation";
 import style from "./Landing.module.css";
 
 const Landing = () => {
+  const [access, setAccess] = useState(false);
+
   const [userData, setuserData] = useState({
     email: "",
     password: "",
@@ -33,13 +35,14 @@ const Landing = () => {
   };
 
   async function loginHandler(userData) {
-    // const { email, password } = userData;
-    // const URL = "http://localhost:3001/rickandmorty/login/";
-    // const { data } = await axios(URL + `?email=${email}&password=${password}`);
-    // const { access } = data;
-    // setAccess(access);
-    // access && navigate("/home");
-    navigate("/home");
+    console.log(userData);
+    const URL = "http://localhost:3001/loginNew";
+    const { data } = await axios.post(URL, userData);
+
+    console.log(data);
+    if (data) {
+      navigate("/home")
+    }
   }
 
   function submitHandler(event) {
@@ -108,7 +111,11 @@ const Landing = () => {
             </label>
             <a href='#'>Forgot password?</a>
           </div>
-          <button className={style.btn} disabled={disableHandler()} type='submit'>
+          <button
+            className={style.btn}
+            disabled={disableHandler()}
+            type='submit'
+          >
             Login
           </button>
           <div className={style.registerLink}>
@@ -118,7 +125,11 @@ const Landing = () => {
           </div>
         </form>
       </div>
-      <button title='Turn off/on background' className={style.turnOff} onClick={handleVideoToggle}>
+      <button
+        title='Turn off/on background'
+        className={style.turnOff}
+        onClick={handleVideoToggle}
+      >
         {isVideoPaused ? (
           <box-icon name='video' type='solid' color='#555'></box-icon>
         ) : (
