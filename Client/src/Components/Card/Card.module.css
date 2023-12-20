@@ -1,0 +1,54 @@
+  .cardContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 300px;
+    min-height: 450px;
+    background: rgba(100, 100, 100, 0.397);
+    border: 2px solid black;
+    border-radius: 15px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    box-shadow: -5px 8px 10px rgb(0 0 0 /0.7);
+  }
+  
+  .characterName {
+    font-weight: bolder;
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .imageContainer img {
+    width: 200px;
+    border: 2px solid black;
+    border-radius: 50%;
+  }
+  
+  .favButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    outline: none;
+    text-decoration: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 20px;
+    color: rgb(110, 25, 179);
+  }
+  
+  .contentContainer {
+    text-align: center;
+  }
+  
+  .contentContainer p {
+    font-weight: 600;
+    font-size: 16px;
+  }
+  
+  .contentContainer .status {
+    color: green;
+  }
+  
+  

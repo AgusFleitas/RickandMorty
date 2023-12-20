@@ -1,4 +1,4 @@
-import Cards from "../Components/Cards";
+import Cards from "../Components/Cards/Cards";
 import { useSelector, useDispatch } from "react-redux";
 import { filterCards, orderCards, reset } from "../redux/actions/actions";
 

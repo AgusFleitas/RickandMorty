@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom";
-import { addFav, removeFav } from "../redux/actions/actions";
+import { addFav, removeFav } from "../../redux/actions/actions";
 import { connect } from "react-redux";
 import { useState, useEffect } from "react";
+
+import style from "./Card.module.css";
 
 function Card(props) {
   // { id, name, status, species, gender, origin, image, onClose, addFav, removeFav, myfavorites}
@@ -35,26 +37,32 @@ function Card(props) {
   }, [myfavorites]);
 
   return (
-    <div>
+    <div className={style.cardContainer}>
+      <span className={style.characterName}>{character.name}</span>
+      <div className={style.imageContainer}>
+        <img src={character.image} alt="" />
+      </div>
       {closeBtn && (
         <button
-          onClick={() => {
-            onClose(character.id);
-          }}
+        onClick={() => {
+          onClose(character.id);
+        }}
         >
           X
         </button>
       )}
       {isFav ? (
         <button
+          className={style.favButton}
           onClick={() => {
             handleFavorite(character.id);
           }}
         >
-          ❤️
+          💜
         </button>
       ) : (
         <button
+          className={style.favButton}
           onClick={() => {
             handleFavorite(character);
           }}
@@ -62,14 +70,10 @@ function Card(props) {
           🤍
         </button>
       )}
-      <Link to={`/detail/${character.id}`}>
-        <h2>{character.name}</h2>
-      </Link>
-      <h2>{character.species}</h2>
-      <h2>{character.gender}</h2>
-      <h2>{character.status}</h2>
-      <h2>{character.origin?.name}</h2>
-      <img src={character.image} alt="" />
+      <div className={style.contentContainer}>
+        <p>Species: <span>{character.species}</span></p>
+        <p>Status: <span>{character.status}</span></p>
+      </div>
     </div>
   );
 }
