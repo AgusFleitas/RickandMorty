@@ -4,12 +4,11 @@ import axios from "axios";
 import "boxicons";
 
 import landingVideo from "../video/landing.mp4";
-import validate from "../Helpers/Validation";
+import validate from "../Helpers/LoginValidations";
 
 import style from "./Landing.module.css";
 
 const Landing = () => {
-  const [access, setAccess] = useState(false);
 
   const [userData, setuserData] = useState({
     email: "",
@@ -17,8 +16,8 @@ const Landing = () => {
   });
 
   const [errors, setErrors] = useState({
-    email: "Email required", //
-    password: "Password required",
+    email: "",
+    password: "",
   });
 
   const [isVideoPaused, setIsVideoPaused] = useState(false);
@@ -26,32 +25,42 @@ const Landing = () => {
 
   const navigate = useNavigate();
 
+  // Función que maneja los cambios en los inputs.
   const handleChange = (event) => {
-    setuserData({ ...userData, [event.target.name]: event.target.value });
-
-    setErrors(
-      validate({ ...userData, [event.target.name]: event.target.value })
-    );
+    const { name, value } = event.target;
+    const updatedUserData = {
+      ...userData,
+      [name]: value,
+    };
+  
+    setuserData(updatedUserData);
+  
+    const fieldErrors = validate(updatedUserData);
+    setErrors(fieldErrors);
   };
 
+  // Función de login.
   async function loginHandler(userData) {
-    console.log(userData);
-    const URL = "http://localhost:3001/loginNew";
-    const { data } = await axios.post(URL, userData);
-
-    console.log(data);
-    if (data) {
-      navigate("/home")
+    try {
+      const URL = "http://localhost:3001/loginNew";
+      const { data } = await axios.post(URL, userData);
+  
+      if (data) {
+        navigate("/home")
+      }
+    } catch (error) {
+      alert(error.response.data.Error)
     }
   }
 
+  // Función que se ejecuta al hacer submit.
   function submitHandler(event) {
     event.preventDefault();
 
     loginHandler(userData);
   }
 
-  //
+  // Si hay errores en el formulario, el botón no funciona.
   function disableHandler() {
     let disabled;
     for (let error in errors) {
@@ -84,14 +93,14 @@ const Landing = () => {
           <h1>Login</h1>
           <div className={style.inputBox}>
             <input
-              type='text'
+              type='email'
               name='email'
               value={userData.email}
               onChange={handleChange}
               placeholder='example123@gmail.com'
             />
             <box-icon type='solid' name='user' color='white'></box-icon>
-            <span>{errors.email}</span>
+            {errors.email && <span>{errors.email}</span>}
           </div>
           <div className={style.inputBox}>
             <input

@@ -1,7 +1,5 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
 
 import SearchBar from "../SearchBar/SearchBar";
 import { searchById } from "../../redux/actions/actions";
@@ -9,27 +7,43 @@ import { searchById } from "../../redux/actions/actions";
 import style from "./Nav.module.css";
 
 const Nav = () => {
-
+  const allCharacters = useSelector((state) => state.allCharacters);
   const dispatch = useDispatch();
 
   // Add a character by ID on the SearchBar.
   async function searchHandler(id) {
-        dispatch(searchById(id))
+    dispatch(searchById(id));
   }
 
   // Add a random character pressing the Random button.
-  // function randomHandler() {
-  //   let randomId = (Math.random() * 826).toFixed();
+  function randomHandler() {
 
-  //   randomId = parseInt(randomId);
+    if (allCharacters.length === 0) {
+      let randomId = (Math.random() * 826).toFixed();
+      randomId = parseInt(randomId);
 
-  //   if (!characters.includes(randomId)) {
-  //     searchHandler(randomId);
-  //   } else {
-  //     alert("Ese personaje ya fue agregado");
-  //     return;
-  //   }
-  // }
+      searchHandler(randomId);
+    }
+
+    let randomId = (Math.random() * 826).toFixed();
+
+    randomId = parseInt(randomId);
+
+    let existingChar = true
+
+    for (let char of allCharacters) {
+      if (char.id === randomId) {
+        alert(`Character with ID ${randomId} already exists!`);
+        return;
+      } else {
+        existingChar = false;
+      }
+    }
+
+    if (!existingChar) {
+      searchHandler(randomId);
+    }
+  }
 
   // Logout session.
   // function logoutHandler() {
@@ -40,7 +54,7 @@ const Nav = () => {
     <div className={style.navBar}>
       <div className={style.interno}>
         <SearchBar onSearch={searchHandler} />
-        <button>Add Random</button>
+        <button onClick={randomHandler}>Add Random</button>
         <Link to='/about'>
           <button>About</button>
         </Link>

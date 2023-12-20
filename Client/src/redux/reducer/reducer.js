@@ -13,7 +13,7 @@ function rootReducer(state = initialState, { type, payload }) {
   let sorted;
   switch (type) {
     case SEARCH_BY_ID: {
-      let currentCharacters = state.allCharacters
+      let currentCharacters = [...state.allCharacters]
 
       if (currentCharacters.length >= 1) {
         currentCharacters.push(payload)

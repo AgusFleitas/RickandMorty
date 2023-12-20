@@ -8,7 +8,7 @@ const FgGreen = "\x1b[32m";
 const FgYellow = "\x1b[33m";
 
 conn
-  .sync({ force: true })
+  .sync({ force: false })
   .then(async () => {
     await initalUpload();
     server.listen(PORT, async () => {

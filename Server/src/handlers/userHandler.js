@@ -5,10 +5,8 @@ const {
 } = require("../controllers/userController");
 
 const createUser = async (req, res) => {
-  const { newUserData } = req.body
-
   try {
-    const response = await createUserController(newUserData);
+    const response = await createUserController(req.body);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json({ Error: error.message });

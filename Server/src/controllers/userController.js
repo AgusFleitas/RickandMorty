@@ -1,8 +1,8 @@
 const { User } = require("../DB-Config");
 const { encrypt, compare } = require("../helpers/handleBcrypt");
 
-const createUserController = async (newUserData) => {
-  const { name, email, password, country } = newUserData;
+const createUserController = async (userData) => {
+  const { name, email, password, country } = userData;
 
   const verifyExist = await User.findOne({
     where: {

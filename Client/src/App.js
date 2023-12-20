@@ -1,6 +1,4 @@
-import { useState } from "react";
-import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
-import axios from "axios";
+import { Routes, Route, useLocation} from "react-router-dom";
 
 import Nav from "./Components/Nav/Nav.jsx";
 
@@ -16,9 +14,6 @@ import style from "./App.module.css";
 
 function App() {
   const location = useLocation();
- 
-
- 
 
   // Delete character from Home.
 
