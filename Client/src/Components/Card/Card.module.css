@@ -14,6 +14,7 @@
   }
   
   .characterName {
+    margin-top: 8px;
     font-weight: bolder;
     font-size: 20px;
     text-align: center;
@@ -37,9 +38,18 @@
     font-size: 20px;
     color: rgb(110, 25, 179);
   }
+
+  .charID {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    font-weight: 600;
+    color: #222;
+  }
   
-  .contentContainer {
+  .contentContainer p{
     text-align: center;
+    text-shadow: rgb(0 0 0 / 0.6) -1px 1px 4px;
   }
   
   .contentContainer p {
@@ -47,8 +57,39 @@
     font-size: 16px;
   }
   
-  .contentContainer .status {
-    color: green;
+  .green {
+    color: darkgreen;
   }
   
-  
+  .red {
+    color: darkred;
+  }
+
+  .yellow {
+    color: darkkhaki;
+  }
+
+.human {
+  color: lightskyblue
+}
+.animal {
+  color: lightyellow
+}
+.alien {
+  color: lightgreen
+}
+.robot {
+  color: lightblue
+}
+.humanoid {
+  color: rgb(168, 179, 216)
+}
+.mythological {
+  color: rgb(214, 153, 95)
+}
+.poopy {
+  color: rgb(117, 83, 51)
+}
+.unknown {
+  color: rgb(116, 106, 63)
+}
