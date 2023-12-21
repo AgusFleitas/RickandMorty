@@ -2,5 +2,41 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: aqua;
+}
+
+.Search input {
+    width: 300px;
+    height: 50%;
+    background: transparent;
+    border: none;
+    outline: none;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 40px;
+    font-size: 16px;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+
+    &:focus {
+        border: 2px solid #ffffffb4;
+        &::placeholder {
+            color: #ffffff81;
+        }
+    }
+}
+
+.Search button {
+    margin-left: 10px;
+    width: 75px;
+    height: 70%;
+    background: transparent;
+    border: 2px solid rgb(255, 255, 255, 0.2);
+    border-radius: 5px;
+    font-weight: bold;
+    color: rgba(255, 255, 255, 0.6);
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.6);
+        color: #555;
+        cursor: pointer;
+    }
 }

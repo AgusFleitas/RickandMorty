@@ -78,6 +78,7 @@ function Card(props) {
   }, [myfavorites]);
 
   return (
+    <Link to={`/detail/${character.id}`} className={style.redirects}>
     <div className={style.cardContainer}>
       <span className={style.characterName}>{character.name}</span>
       <div className={style.imageContainer}>
@@ -121,6 +122,7 @@ function Card(props) {
         </p>
       </div>
     </div>
+    </Link>
   );
 }
 

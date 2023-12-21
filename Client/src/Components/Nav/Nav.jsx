@@ -12,12 +12,23 @@ const Nav = () => {
 
   // Add a character by ID on the SearchBar.
   async function searchHandler(id) {
+    if (allCharacters.length === 0) {
+      dispatch(searchById(id));
+      return;
+    }
+
+  const numberID = parseInt(id);
+  let exists = allCharacters.some((char) => char.id === numberID);
+
+  if (exists) {
+    alert(`Character with ID ${id} already exists!`);
+  } else {
     dispatch(searchById(id));
+  }
   }
 
   // Add a random character pressing the Random button.
   function randomHandler() {
-
     if (allCharacters.length === 0) {
       let randomId = (Math.random() * 826).toFixed();
       randomId = parseInt(randomId);
@@ -29,7 +40,7 @@ const Nav = () => {
 
     randomId = parseInt(randomId);
 
-    let existingChar = true
+    let existingChar = true;
 
     for (let char of allCharacters) {
       if (char.id === randomId) {
@@ -51,22 +62,30 @@ const Nav = () => {
   // }
 
   return (
-    <div className={style.navBar}>
       <div className={style.interno}>
+        <div className={style.navLinks}>
+          <Link to='/home'>
+            Home
+          </Link>
+          <Link to='/favorites'>
+            Favorites
+          </Link>
+          <Link to='/about'>
+            About
+          </Link>
+        </div>
         <SearchBar onSearch={searchHandler} />
-        <button onClick={randomHandler}>Add Random</button>
-        <Link to='/about'>
-          <button>About</button>
-        </Link>
-        <Link to='/home'>
-          <button>Home</button>
-        </Link>
-        <Link to='/favorites'>
-          <button>Favorites</button>
-        </Link>
-        <button>Log Out</button>
+        <button 
+        onClick={randomHandler} 
+        className={style.random}
+        title="Press to add a random character."
+        >
+          Add Random Char
+          </button>
+        <button
+        className={style.logOut}
+        >Log Out</button>
       </div>
-    </div>
   );
 };
 

@@ -14,14 +14,15 @@ const Home = () => {
     <>
       <Cards characters={characters} />
       <div className={style.videoWrapper}>
-        <video
-          src={homeVideo}
-          autoPlay
-          muted
-          loop
-          className={style.bgVideo}
-        />
+        <video src={homeVideo} autoPlay muted loop className={style.bgVideo} />
       </div>
+      {characters.length === 0 && (
+        <span className={style.empty}>
+          Hey, your Home is empty!
+          <br></br>
+          Try to add some character.
+        </span>
+      )}
     </>
   );
 };
