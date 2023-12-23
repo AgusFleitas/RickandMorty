@@ -1,10 +1,14 @@
 const {
   findCharByID,
   findCharByName,
-  addCustomChar
+  addCustomChar,
 } = require("../handlers/charHandler");
+const {
+  addFavCharacter,
+  deleteFavCharacter,
+  getAllFavs,
+} = require("../handlers/favHandler");
 const { createUser, loginUser } = require("../handlers/userHandler");
-const { postFav, deleteFav } = require("../controllers/handleFavorites");
 
 const router = require("express").Router();
 
@@ -13,7 +17,8 @@ router.get("/character/:id", findCharByID); // Funciona ✅
 router.post("/character/addcustom", addCustomChar); // Funciona ✅
 router.post("/register", createUser); // Funciona ✅
 router.post("/loginNew", loginUser); // Funciona ✅
-router.post("/fav", postFav);
-router.delete("/fav/:id", deleteFav);
+router.post("/favcharacter", addFavCharacter); // Funciona ✅
+router.delete("/favcharacter", deleteFavCharacter); // Funciona ✅
+router.get("/favcharacters", getAllFavs); // Funciona ✅
 
 module.exports = router;
