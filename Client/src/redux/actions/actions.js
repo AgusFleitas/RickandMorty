@@ -26,11 +26,11 @@ export const searchById = (id) => {
   }
 }
 
-export const addFav = (character) => {
-  const endpoint = "http://localhost:3001/rickandmorty/fav";
+export const addFav = (userID, charID) => {
+  const endpoint = "http://localhost:3001/favcharacter";
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, character);
+      const { data } = await axios.post(endpoint, userID, charID);
 
       return dispatch({
         type: ADD_FAV,
@@ -38,15 +38,16 @@ export const addFav = (character) => {
       });
     } catch (error) {
       console.log(error);
+      alert("Ocurrió un error al agregar el personaje a favoritos: " + error);
     }
   };
 };
 
-export const removeFav = (id) => {
-  const endpoint = "http://localhost:3001/rickandmorty/fav/" + id;
+export const removeFav = (userID, charID) => {
+  const endpoint = "http://localhost:3001/favcharacter";
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(endpoint);
+      const { data } = await axios.delete(endpoint, userID, charID);
 
       return dispatch({
         type: REMOVE_FAV,
@@ -54,6 +55,7 @@ export const removeFav = (id) => {
       });
     } catch (error) {
       console.log(error);
+      alert("Ocurrió un error al eliminar el personaje de favoritos: " + error);
     }
   };
 };

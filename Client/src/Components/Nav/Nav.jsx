@@ -30,7 +30,7 @@ const Nav = () => {
   // Add a random character pressing the Random button.
   function randomHandler() {
     if (allCharacters.length === 0) {
-      let randomId = (Math.random() * 826).toFixed();
+      let randomId = Math.floor(Math.random() * 826) + 1;
       randomId = parseInt(randomId);
 
       searchHandler(randomId);

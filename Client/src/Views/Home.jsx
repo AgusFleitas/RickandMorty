@@ -20,7 +20,7 @@ const Home = () => {
         <span className={style.empty}>
           Hey, your Home is empty!
           <br></br>
-          Try to add some character.
+          Try to add some characters.
         </span>
       )}
     </>

@@ -1,5 +1,6 @@
 const { User } = require("../DB-Config");
 const { encrypt, compare } = require("../helpers/handleBcrypt");
+const { tokenSign } = require("../helpers/generateToken")
 
 const createUserController = async (userData) => {
   const { name, email, password, country } = userData;
@@ -40,7 +41,8 @@ const loginUserController = async (email, password) => {
     if (!checkPassword) {
       throw new Error("Invalid password.");
     } else {
-      return userFound;
+      const tokenSession = await tokenSign(userFound)
+      return {data: userFound, tokenSession};
     }
   }
 };
