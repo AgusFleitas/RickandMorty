@@ -9,6 +9,7 @@ const {
   getAllFavs,
 } = require("../handlers/favHandler");
 const { createUser, loginUser } = require("../handlers/userHandler");
+const { checkAuth } = require("../middleware/auth");
 
 const router = require("express").Router();
 
@@ -19,6 +20,6 @@ router.post("/register", createUser); // Funciona ✅
 router.post("/loginNew", loginUser); // Funciona ✅
 router.post("/favcharacter", addFavCharacter); // Funciona ✅
 router.delete("/favcharacter", deleteFavCharacter); // Funciona ✅
-router.get("/favcharacters", getAllFavs); // Funciona ✅
+router.get("/favcharacters", checkAuth, getAllFavs); // Funciona ✅
 
 module.exports = router;

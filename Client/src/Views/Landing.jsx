@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "boxicons";
@@ -9,21 +9,37 @@ import validate from "../Helpers/LoginValidations";
 import style from "./Landing.module.css";
 
 const Landing = () => {
-
+  // Estado para el formulario.
   const [userData, setuserData] = useState({
     email: "",
     password: "",
   });
 
+  // Estado para los errores del formulario.
   const [errors, setErrors] = useState({
     email: "",
     password: "",
   });
-
+  
+  // Estado para pausar/reaunador el video.
   const [isVideoPaused, setIsVideoPaused] = useState(false);
   const videoRef = useRef(null);
 
   const navigate = useNavigate();
+
+  // useEffect para comprobar si existe una sesión de usuario con un token vigente.
+  useEffect(() => {
+    const userFromStorage = localStorage.getItem('user');
+    const { token } = JSON.parse(userFromStorage);
+
+    if (token) {
+      const currentTime = Math.floor(Date.now() / 1000);
+      const tokenPayload = JSON.parse(window.atob(token.split('.')[1]))
+      if (tokenPayload.exp > currentTime) {
+        navigate("/home")
+      }
+    }
+  });
 
   // Función que maneja los cambios en los inputs.
   const handleChange = (event) => {
@@ -46,6 +62,7 @@ const Landing = () => {
       const { data } = await axios.post(URL, userData);
   
       if (data) {
+        localStorage.setItem("user", JSON.stringify({ id: data.user.id, name: data.user.name, token: data.tokenSession}))
         navigate("/home")
       }
     } catch (error) {

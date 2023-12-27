@@ -8,10 +8,10 @@ const checkAuth = async (req, res, next) => {
     if (tokenData.id) {
       next();
     } else {
-      return res.status(403).json({ Error: "You don't have access." });
+      return res.status(403).json({ Error: "You need to log in to access." });
     }
   } catch (error) {
-    return res.status(403).json({ Error: "You don't have access." });
+    return res.status(403).json({ Error: "You need to log in to access." });
   }
 };
 

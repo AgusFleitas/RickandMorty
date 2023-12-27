@@ -42,7 +42,7 @@ const loginUserController = async (email, password) => {
       throw new Error("Invalid password.");
     } else {
       const tokenSession = await tokenSign(userFound)
-      return {data: userFound, tokenSession};
+      return {user: userFound, tokenSession};
     }
   }
 };

@@ -5,8 +5,6 @@ import homeVideo from "../video/home.mp4";
 
 import style from "./Home.module.css";
 
-// Poner en funcionamiento el Register y el AddRandom.
-
 const Home = () => {
   const characters = useSelector((state) => state.allCharacters);
 
