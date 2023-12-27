@@ -56,14 +56,18 @@
     }
 }
 
+.guest {
+    display: flex;
+}
+
 .logOut {
-    width: 75px;
     height: 70%;
     align-self: center;
     background: transparent;
     border: 2px solid rgb(255, 255, 255, 0.2);
     border-radius: 5px;
     font-weight: bold;
+    padding: 0 8px;
     color: rgba(255, 255, 255, 0.6);
 
     &:hover {
@@ -71,4 +75,18 @@
         color: #555;
         cursor: pointer;
     }
+}
+
+.session {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 350px;
+}
+
+.welcome {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: bold;
+    font-size: 19px;
+    text-shadow: -3px 3px 2px black;
 }

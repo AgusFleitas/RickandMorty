@@ -20,7 +20,7 @@ const Landing = () => {
     email: "",
     password: "",
   });
-  
+
   // Estado para pausar/reaunador el video.
   const [isVideoPaused, setIsVideoPaused] = useState(false);
   const videoRef = useRef(null);
@@ -30,9 +30,9 @@ const Landing = () => {
   // useEffect para comprobar si existe una sesión de usuario con un token vigente.
   useEffect(() => {
     const userFromStorage = localStorage.getItem('user');
-    const { token } = JSON.parse(userFromStorage);
-
-    if (token) {
+    
+    if (userFromStorage) {
+      const { token } = JSON.parse(userFromStorage);
       const currentTime = Math.floor(Date.now() / 1000);
       const tokenPayload = JSON.parse(window.atob(token.split('.')[1]))
       if (tokenPayload.exp > currentTime) {
@@ -115,12 +115,14 @@ const Landing = () => {
               value={userData.email}
               onChange={handleChange}
               placeholder='example123@gmail.com'
+              title="Complete your email."
             />
             <box-icon type='solid' name='user' color='white'></box-icon>
             {errors.email && <span>{errors.email}</span>}
           </div>
           <div className={style.inputBox}>
             <input
+            title="Complete your password."
               type='password'
               name='password'
               value={userData.password}
@@ -132,8 +134,8 @@ const Landing = () => {
           </div>
           <div className={style.rememberForgot}>
             <label>
-              <input type='checkbox' />
-              Remember me
+              <input type='checkbox' title="For security reasons, only your username will be saved. You must complete your password next time you need to login."/>
+              Remember email
             </label>
             <a href='#'>Forgot password?</a>
           </div>
