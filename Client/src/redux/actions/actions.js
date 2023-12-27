@@ -4,7 +4,8 @@ import {
   REMOVE_FAV, 
   FILTER, 
   ORDER, 
-  RESET 
+  RESET, 
+  DELETE_FROM_HOME
 } from "./action-types";
 import axios from "axios";
 
@@ -24,6 +25,13 @@ export const searchById = (id) => {
       alert("Ocurrió un error al buscar el personaje: " + error);
     }
   }
+}
+
+export const deleteChar = (id) => {
+  return {
+    type: DELETE_FROM_HOME,
+    payload: id,
+  };
 }
 
 export const addFav = (userID, charID) => {

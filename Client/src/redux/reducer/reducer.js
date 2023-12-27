@@ -5,6 +5,7 @@ import {
   FILTER,
   ORDER,
   RESET,
+  DELETE_FROM_HOME,
 } from "../actions/action-types";
 
 let initialState = { myfavorites: [], allCharacters: [] };
@@ -19,6 +20,21 @@ function rootReducer(state = initialState, { type, payload }) {
         currentCharacters.push(payload)
       } else {
         currentCharacters = Array.isArray(payload) ? payload : [payload]
+      }
+
+      return {
+        ...state,
+        allCharacters: currentCharacters
+      };
+    }
+
+    case DELETE_FROM_HOME: {
+      let currentCharacters = [...state.allCharacters]
+
+      if (currentCharacters.length > 1) {
+        currentCharacters = currentCharacters.filter((character) => character.id !== payload)
+      } else {
+        currentCharacters = [];
       }
 
       return {

@@ -1,16 +1,16 @@
-import { Link } from "react-router-dom";
-import { addFav, removeFav } from "../../redux/actions/actions";
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { deleteChar } from "../../redux/actions/actions";
+import { useDispatch } from "react-redux";
+import { useState } from "react";
 
 import style from "./Card.module.css";
 
 function Card(props) {
-  // { id, name, status, species, gender, origin, image, onClose, addFav, removeFav, myfavorites}
-
-  const { character, onClose, myfavorites, addFav, removeFav } = props;
+  const { character, addFav, removeFav } = props;
   const [isFav, setIsFav] = useState(false);
-  const [closeBtn, setCloseBtn] = useState(true);
+
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   // Variable para el color de la especie.
   let speciesClass;
@@ -53,11 +53,10 @@ function Card(props) {
     colorClass = style.yellow;
   }
 
-  useEffect(() => {
-    if (!onClose) {
-      setCloseBtn(false);
-    }
-  }, []);
+  // Funcion para eliminar el personaje del Home.
+  function deleteFromHome (id) {
+    dispatch(deleteChar(id))
+  }
 
   const handleFavorite = (character) => {
     if (!isFav) {
@@ -78,13 +77,9 @@ function Card(props) {
       </div>
       </Link>
       <span className={style.charID}>#{character.id}</span>
-      {closeBtn && (
-        <button
-          onClick={() => {
-            onClose(character.id);
-          }}
-        >
-          X
+      {location !== "/favorites" && (
+        <button onClick={() => {deleteFromHome(character.id)}} className={style.delete}>
+          ❌
         </button>
       )}
       {isFav ? (

@@ -15,16 +15,6 @@ import style from "./App.module.css";
 function App() {
   const location = useLocation();
 
-  // Delete character from Home.
-
-  // function closeHandler(id) {
-  //   let filteredCharacters = characters.filter(
-  //     (character) => character.id !== id
-  //   );
-
-  //   setCharacters(filteredCharacters);
-  // }
-
   // Render ↓
 
   return (

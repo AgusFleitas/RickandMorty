@@ -12,7 +12,7 @@
   align-items: center;
   width: 300px;
   min-height: 450px;
-  background: rgba(100, 100, 100, 0.397);
+  background: rgba(104, 74, 160, 0.397);
   border: 2px solid black;
   border-radius: 15px;
   position: relative;
@@ -46,7 +46,7 @@
 .favButton {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 40px;
   outline: none;
   text-decoration: none;
   border: none;
@@ -56,12 +56,27 @@
   color: rgb(110, 25, 179);
 }
 
+.delete {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  text-decoration: none;
+  border: none;
+  background: transparent;
+  font-size: 20px;
+
+  &:hover {
+    text-shadow: rgb(255, 105, 105) 0 0 5px;
+    cursor: pointer;
+  }
+}
+
 .charID {
   position: absolute;
   top: 15px;
   left: 15px;
   font-weight: 600;
-  color: #222;
+  color: #aaa;
 }
 
 .contentContainer p {
