@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import SearchBar from "../SearchBar/SearchBar";
@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 const Nav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const allCharacters = useSelector((state) => state.allCharacters);
 
@@ -110,6 +111,7 @@ const Nav = () => {
         onClick={randomHandler}
         className={style.random}
         title='Press to add a random character.'
+        disabled={location.pathname !== "/home"}
       >
         Add Random Char
       </button>

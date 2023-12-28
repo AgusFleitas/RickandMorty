@@ -39,7 +39,7 @@ const getOneFav = async (req, res) => {
 };
 
 const getAllFavs = async (req, res) => {
-  const { userID } = req.body;
+  const { userID } = req.query;
 
   try {
     const response = await getAllFavsController(userID);

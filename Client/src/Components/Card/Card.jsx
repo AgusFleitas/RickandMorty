@@ -39,34 +39,36 @@ function Card(props) {
       speciesClass = style.poopy;
       break;
     default:
-      speciesClass = style.unknown
+      speciesClass = style.unknown;
       break;
   }
 
   // useEffect para saber is el personaje está en favoritos.
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
-    
+
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/favcharacter', 
-        {params: {
-          userID: storedUser.id,
-          charID: character.id
-        }
-      });
-        
+        const response = await axios.get("http://localhost:3001/favcharacter", {
+          params: {
+            userID: storedUser.id,
+            charID: character.id,
+          },
+        });
+
         if (response.data) {
-          setIsFav(true)
+          setIsFav(true);
         }
       } catch (error) {
         console.log(error);
-        alert("Error al consultar si es favorito: " + error.response.data.Error)
+        alert(
+          "Error al consultar si es favorito: " + error.response.data.Error
+        );
       }
     };
 
     fetchData();
-  }, [character.id])
+  }, [character.id]);
 
   // Variable para el color del status.
   let colorClass;
@@ -80,10 +82,10 @@ function Card(props) {
   }
 
   // Funcion para eliminar el personaje del Home.
-  function deleteFromHome (id) {
-    dispatch(deleteChar(id))
+  function deleteFromHome(id) {
+    dispatch(deleteChar(id));
   }
-  
+
   // Funcion que añade/elimina el personaje en favoritos.
   function favHandler(id) {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -100,35 +102,44 @@ function Card(props) {
   return (
     <div className={style.cardContainer}>
       <span className={style.characterName}>{character.name}</span>
-      <Link to={`/detail/${character.id}`} className={style.redirects}>
-      <div className={style.imageContainer}>
-        <img src={character.image} alt='' />
-      </div>
+      <Link to={`/detail/${character.id}`} className={style.redirects} title="Click to see more info about the character.">
+        <div className={style.imageContainer}>
+          <img src={character.image} alt='' />
+        </div>
       </Link>
       <span className={style.charID}>#{character.id}</span>
-      {location !== "/favorites" && (
-        <button onClick={() => {deleteFromHome(character.id)}} className={style.delete}>
+      {location.pathname !== "/favorites" && (
+        <button
+          onClick={() => {
+            deleteFromHome(character.id);
+          }}
+          className={style.delete}
+        >
           ❌
         </button>
       )}
-      {isFav ? (
-        <button
-          className={style.favButton}
-          onClick={() => {
-            favHandler(character.id);
-          }}
-        >
-          💜
-        </button>
-      ) : (
-        <button
-          className={style.favButton}
-          onClick={() => {
-            favHandler(character.id);
-          }}
-        >
-          🤍
-        </button>
+      {location.pathname === "/home" &&
+        (isFav ? (
+          <button
+            className={style.favButton}
+            onClick={() => {
+              favHandler(character.id);
+            }}
+          >
+            💜
+          </button>
+        ) : (
+          <button
+            className={style.favButton}
+            onClick={() => {
+              favHandler(character.id);
+            }}
+          >
+            🤍
+          </button>
+        ))}
+      {location.pathname === "/favorites" && (
+        <button className={style.delFav} title="Delete character from your favorites.">💔</button>
       )}
       <div className={style.contentContainer}>
         <p>
@@ -141,6 +152,5 @@ function Card(props) {
     </div>
   );
 }
-
 
 export default Card;

@@ -1,8 +1,13 @@
 import {useState} from "react";
-import style from "./SearchBar.module.css";
+import { useLocation } from "react-router-dom";
+
 import "boxicons";
 
+import style from "./SearchBar.module.css";
+
 export default function SearchBar({onSearch}) {
+  const location = useLocation()
+
   const [id, setId] = useState("");
 
   function handleSearch () {
@@ -30,8 +35,9 @@ export default function SearchBar({onSearch}) {
         onKeyDown={handleKeyPress}
         value={id}
         placeholder="Number from 1 to 826"
+        disabled={location.pathname !== "/home"}
       />
-      <button onClick={handleSearch}>
+      <button onClick={handleSearch} disabled={location.pathname !== "/home"}>
        Search
       </button>
     </div>
