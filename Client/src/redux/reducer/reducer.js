@@ -6,6 +6,7 @@ import {
   ORDER,
   RESET,
   DELETE_FROM_HOME,
+  SET_CHARACTERS,
 } from "../actions/action-types";
 
 let initialState = { myfavorites: [], allCharacters: [] };
@@ -14,32 +15,48 @@ function rootReducer(state = initialState, { type, payload }) {
   let sorted;
   switch (type) {
     case SEARCH_BY_ID: {
-      let currentCharacters = [...state.allCharacters]
+      let currentCharacters = [...state.allCharacters];
 
       if (currentCharacters.length >= 1) {
-        currentCharacters.push(payload)
+        currentCharacters.push(payload);
       } else {
-        currentCharacters = Array.isArray(payload) ? payload : [payload]
+        currentCharacters = Array.isArray(payload) ? payload : [payload];
       }
 
       return {
         ...state,
-        allCharacters: currentCharacters
+        allCharacters: currentCharacters,
       };
     }
 
     case DELETE_FROM_HOME: {
-      let currentCharacters = [...state.allCharacters]
+      let currentCharacters = [...state.allCharacters];
 
       if (currentCharacters.length > 1) {
-        currentCharacters = currentCharacters.filter((character) => character.id !== payload)
+        currentCharacters = currentCharacters.filter(
+          (character) => character.id !== payload
+        );
       } else {
         currentCharacters = [];
       }
 
       return {
         ...state,
-        allCharacters: currentCharacters
+        allCharacters: currentCharacters,
+      };
+    }
+
+    case SET_CHARACTERS: {
+      console.log("Esto llega al payload: ", payload);
+      let currentCharacters = [];
+
+      if (Array.isArray(payload)) {
+        currentCharacters = payload;
+      }
+    
+      return {
+        ...state,
+        allCharacters: currentCharacters,
       };
     }
 

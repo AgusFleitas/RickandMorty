@@ -2,7 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
 import SearchBar from "../SearchBar/SearchBar";
-import { searchById } from "../../redux/actions/actions";
+import { searchById, setCharacters } from "../../redux/actions/actions";
 
 import style from "./Nav.module.css";
 import { useEffect, useState } from "react";
@@ -13,7 +13,11 @@ const Nav = () => {
 
   const allCharacters = useSelector((state) => state.allCharacters);
 
+  // Estado para saber el nombre del usuario en caso de que haya logueado.
   const [username, setUserName] = useState(null);
+  
+  // Estado para saber si cargamos personajes del LocalStorage.
+  const [initialLoad, setInitialLoad] = useState(true);
   
   // useEffect para comprobar si hay una sesión y mostrar el saludo con el nombre.
   useEffect(() => {
@@ -24,6 +28,22 @@ const Nav = () => {
       setUserName(name);
     }
   }, []);
+
+  // useEffect para cargar los personajes en el LocalStorage.
+  useEffect(() => {
+    const storedCharacters = JSON.parse(localStorage.getItem("allCharacters"));
+    if (storedCharacters && initialLoad) {
+      dispatch(setCharacters(storedCharacters));
+      setInitialLoad(false);
+    }
+  }, [dispatch, initialLoad]);
+
+  // useEffect para guardar los personajes en el localStorage.
+  useEffect(() => {
+    if (!initialLoad) {
+      localStorage.setItem("allCharacters", JSON.stringify(allCharacters));
+    }
+  }, [allCharacters, initialLoad]);
 
   // Añadir un personaje por ID en la barra de búsqueda.
   async function searchHandler(id) {

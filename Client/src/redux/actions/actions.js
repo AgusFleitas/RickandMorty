@@ -5,7 +5,8 @@ import {
   FILTER, 
   ORDER, 
   RESET, 
-  DELETE_FROM_HOME
+  DELETE_FROM_HOME,
+  SET_CHARACTERS
 } from "./action-types";
 import axios from "axios";
 
@@ -31,6 +32,13 @@ export const deleteChar = (id) => {
   return {
     type: DELETE_FROM_HOME,
     payload: id,
+  };
+}
+
+export const setCharacters = (characters) => {
+  return {
+    type: SET_CHARACTERS,
+    payload: characters,
   };
 }
 
