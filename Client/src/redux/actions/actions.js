@@ -62,9 +62,10 @@ export const addFav = (userID, charID) => {
 
 export const removeFav = (userID, charID) => {
   const endpoint = "http://localhost:3001/favcharacter";
+
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(endpoint, {userID, charID});
+      const { data } = await axios.delete(endpoint, {params: {userID, charID}});
 
       return dispatch({
         type: REMOVE_FAV,

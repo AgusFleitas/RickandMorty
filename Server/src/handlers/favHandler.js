@@ -1,6 +1,7 @@
 const {
   addFavCharacterController,
   deleteFavCharacterController,
+  getOneFavController,
   getAllFavsController,
 } = require("../controllers/favController");
 
@@ -16,10 +17,21 @@ const addFavCharacter = async (req, res) => {
 };
 
 const deleteFavCharacter = async (req, res) => {
-  const { userID, charID } = req.body;
+  const { userID, charID } = req.query;
 
   try {
     const response = await deleteFavCharacterController(userID, charID);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json({ Error: error.message });
+  }
+};
+
+const getOneFav = async (req, res) => {
+  const { userID, charID } = req.query;
+
+  try {
+    const response = await getOneFavController(userID, charID);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json({ Error: error.message });
@@ -40,5 +52,6 @@ const getAllFavs = async (req, res) => {
 module.exports = {
   addFavCharacter,
   deleteFavCharacter,
+  getOneFav,
   getAllFavs,
 };

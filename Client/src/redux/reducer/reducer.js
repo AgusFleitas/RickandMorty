@@ -59,18 +59,37 @@ function rootReducer(state = initialState, { type, payload }) {
       };
     }
 
-    case ADD_FAV:
-      return {
-        ...state,
-        myfavorites: payload,
-      };
+    case ADD_FAV: {
+      let currentFavorites = [...state.myfavorites];
 
-    case REMOVE_FAV:
+      if (currentFavorites.length >= 1) {
+        currentFavorites.push(payload);
+      } else {
+        currentFavorites = Array.isArray(payload) ? payload : [payload];
+      }
+
       return {
         ...state,
-        myfavorites: payload,
-        allCharacters: payload,
+        myfavorites: currentFavorites,
       };
+    }
+
+    case REMOVE_FAV: {
+      let currentFavorites = [...state.myfavorites];
+
+      if (currentFavorites.length > 1) {
+        currentFavorites = currentFavorites.filter(
+          (character) => character.id !== payload
+        );
+      } else {
+        currentFavorites = [];
+      }
+
+      return {
+        ...state,
+        myfavorites: currentFavorites,
+      };
+    }
 
     case FILTER:
       return {

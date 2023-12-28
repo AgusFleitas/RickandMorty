@@ -6,6 +6,7 @@ const {
 const {
   addFavCharacter,
   deleteFavCharacter,
+  getOneFav,
   getAllFavs,
 } = require("../handlers/favHandler");
 const { createUser, loginUser } = require("../handlers/userHandler");
@@ -20,6 +21,7 @@ router.post("/register", createUser); // Funciona ✅
 router.post("/loginNew", loginUser); // Funciona ✅
 router.post("/favcharacter", addFavCharacter); // Funciona ✅
 router.delete("/favcharacter", deleteFavCharacter); // Funciona ✅
+router.get("/favcharacter", getOneFav); // Funciona ✅
 router.get("/favcharacters", checkAuth, getAllFavs); // Funciona ✅
 
 module.exports = router;

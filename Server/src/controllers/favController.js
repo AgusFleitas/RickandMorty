@@ -28,6 +28,21 @@ const deleteFavCharacterController = async (userID, charID) => {
   }
 };
 
+const getOneFavController = async (userID, charID) => {
+  const user = await User.findByPk(userID);
+  if (!user) {
+    throw new Error("User not found");
+  }
+
+  const character = await Character.findByPk(charID);
+  if (!character) {
+    throw new Error ("Character not found");
+  }
+
+  const isFavorite = await user.hasCharacter(character);
+  return isFavorite;
+};
+
 const getAllFavsController = async (userID) => {
   const user = await User.findByPk(userID, {
     include: [{ model: Character, through: "Favorites" }],
@@ -44,5 +59,6 @@ const getAllFavsController = async (userID) => {
 module.exports = {
   addFavCharacterController,
   deleteFavCharacterController,
+  getOneFavController,
   getAllFavsController,
 };

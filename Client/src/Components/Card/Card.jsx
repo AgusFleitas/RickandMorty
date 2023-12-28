@@ -1,7 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import { deleteChar, addFav, removeFav } from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 import style from "./Card.module.css";
 
@@ -41,6 +42,31 @@ function Card(props) {
       speciesClass = style.unknown
       break;
   }
+
+  // useEffect para saber is el personaje está en favoritos.
+  useEffect(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    
+    const fetchData = async () => {
+      try {
+        const response = await axios.get('http://localhost:3001/favcharacter', 
+        {params: {
+          userID: storedUser.id,
+          charID: character.id
+        }
+      });
+        
+        if (response.data) {
+          setIsFav(true)
+        }
+      } catch (error) {
+        console.log(error);
+        alert("Error al consultar si es favorito: " + error.response.data.Error)
+      }
+    };
+
+    fetchData();
+  }, [character.id])
 
   // Variable para el color del status.
   let colorClass;
