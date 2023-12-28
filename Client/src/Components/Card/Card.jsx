@@ -1,12 +1,12 @@
 import { Link, useLocation } from "react-router-dom";
-import { deleteChar } from "../../redux/actions/actions";
+import { deleteChar, addFav, removeFav } from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 
 import style from "./Card.module.css";
 
 function Card(props) {
-  const { character, addFav, removeFav } = props;
+  const { character } = props;
   const [isFav, setIsFav] = useState(false);
 
   const dispatch = useDispatch();
@@ -57,16 +57,19 @@ function Card(props) {
   function deleteFromHome (id) {
     dispatch(deleteChar(id))
   }
+  
+  // Funcion que añade/elimina el personaje en favoritos.
+  function favHandler(id) {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
 
-  const handleFavorite = (character) => {
     if (!isFav) {
-      addFav(character);
+      dispatch(addFav(storedUser.id, id));
       setIsFav(true);
     } else {
-      removeFav(character);
+      dispatch(removeFav(storedUser.id, id));
       setIsFav(false);
     }
-  };
+  }
 
   return (
     <div className={style.cardContainer}>
@@ -86,7 +89,7 @@ function Card(props) {
         <button
           className={style.favButton}
           onClick={() => {
-            handleFavorite(character.id);
+            favHandler(character.id);
           }}
         >
           💜
@@ -95,7 +98,7 @@ function Card(props) {
         <button
           className={style.favButton}
           onClick={() => {
-            handleFavorite(character);
+            favHandler(character.id);
           }}
         >
           🤍

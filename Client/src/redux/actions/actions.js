@@ -43,10 +43,11 @@ export const setCharacters = (characters) => {
 }
 
 export const addFav = (userID, charID) => {
-  const endpoint = "http://localhost:3001/favcharacter";
+  const endpoint = `http://localhost:3001/favcharacter`
+
   return async (dispatch) => {
     try {
-      const { data } = await axios.post(endpoint, userID, charID);
+      const { data } = await axios.post(endpoint, {userID, charID})
 
       return dispatch({
         type: ADD_FAV,
@@ -56,14 +57,14 @@ export const addFav = (userID, charID) => {
       console.log(error);
       alert("Ocurrió un error al agregar el personaje a favoritos: " + error);
     }
-  };
+  }
 };
 
 export const removeFav = (userID, charID) => {
   const endpoint = "http://localhost:3001/favcharacter";
   return async (dispatch) => {
     try {
-      const { data } = await axios.delete(endpoint, userID, charID);
+      const { data } = await axios.delete(endpoint, {userID, charID});
 
       return dispatch({
         type: REMOVE_FAV,

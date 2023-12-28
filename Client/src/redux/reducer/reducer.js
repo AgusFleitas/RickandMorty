@@ -47,7 +47,6 @@ function rootReducer(state = initialState, { type, payload }) {
     }
 
     case SET_CHARACTERS: {
-      console.log("Esto llega al payload: ", payload);
       let currentCharacters = [];
 
       if (Array.isArray(payload)) {
@@ -64,7 +63,6 @@ function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         myfavorites: payload,
-        allCharacters: payload,
       };
 
     case REMOVE_FAV:

@@ -15,7 +15,7 @@ const Nav = () => {
 
   // Estado para saber el nombre del usuario en caso de que haya logueado.
   const [username, setUserName] = useState(null);
-  
+
   // Estado para saber si cargamos personajes del LocalStorage.
   const [initialLoad, setInitialLoad] = useState(true);
   
@@ -89,11 +89,12 @@ const Nav = () => {
     if (!existingChar) {
       searchHandler(randomId);
     }
-  }
+  } 
 
-  // Logout session.
+  // Cerrar sesión.
   function logoutHandler() {
     localStorage.removeItem("user");
+    localStorage.removeItem("allCharacters");
     navigate("/");
   }
 
