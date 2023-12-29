@@ -1,12 +1,13 @@
 import {
   SEARCH_BY_ID,
-  ADD_FAV,
-  REMOVE_FAV,
   FILTER,
   ORDER,
   RESET,
   DELETE_FROM_HOME,
   SET_CHARACTERS,
+  SET_FAVORITES,
+  ADD_FAV,
+  REMOVE_FAV,
 } from "../actions/action-types";
 
 let initialState = { myfavorites: [], allCharacters: [] };
@@ -79,7 +80,7 @@ function rootReducer(state = initialState, { type, payload }) {
 
       if (currentFavorites.length > 1) {
         currentFavorites = currentFavorites.filter(
-          (character) => character.id !== payload
+          (character) => character.id !== payload.id
         );
       } else {
         currentFavorites = [];
@@ -90,6 +91,12 @@ function rootReducer(state = initialState, { type, payload }) {
         myfavorites: currentFavorites,
       };
     }
+
+    case SET_FAVORITES:
+      return {
+        ...state,
+        myfavorites: payload,
+      } 
 
     case FILTER:
       return {

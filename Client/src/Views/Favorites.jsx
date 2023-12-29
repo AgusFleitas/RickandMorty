@@ -1,69 +1,36 @@
 import Cards from "../Components/Cards/Cards";
 import { useSelector, useDispatch } from "react-redux";
-import { filterCards, orderCards } from "../redux/actions/actions";
+import { setFavs } from "../redux/actions/actions";
 import { useEffect, useState } from "react";
-import axios from "axios";
 
 import homeVideo from "../video/home.mp4";
 
-import style from "./Favorites.module.css"
+import style from "./Favorites.module.css";
 
 const Favorites = () => {
   const dispatch = useDispatch();
-  const [favorites, setFavorites] = useState([]);
 
+  const [dataLoaded, setDataLoaded] = useState(true);
+
+  const favorites = useSelector((state) => state.myfavorites);
+
+  // useEffect para cargar los favoritos por primera vez.
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          "http://localhost:3001/favcharacters",
-          {
-            params: {
-              userID: storedUser.id,
-            },
-            headers: {
-              Authorization: `Bearer ${storedUser.token}`,
-            },
-          }
-        );
+    if (dataLoaded) {
+      dispatch(setFavs(storedUser.id, storedUser.token));
+      setDataLoaded(false);
+    }
+  }, [dispatch, dataLoaded]);
 
-        console.log(response.data);
-
-        if (response.data) {
-          setFavorites(response.data);
-        }
-      } catch (error) {
-        console.log(error);
-        alert(
-          "Error al consultar tus favoritos favoritos: " +
-            error.response.data.Error
-        );
-      }
-    };
-
-    fetchData();
-  }, []);
-
-  const handleOrder = (event) => {
-    dispatch(orderCards(event.target.value));
-  };
-
-  const handleFilter = (event) => {
-    dispatch(filterCards(event.target.value));
-  };
-
-  // function resetHandler() {
-  //   dispatch(reset());
-  // }
 
   return (
     <div className={style.favorites}>
       <h1 className={style.title}>THESE ARE YOUR FAVORITE CHARACTERS:</h1>
       <div className={style.filters}>
         <span>Filter by Gender: </span>
-        <select onChange={handleFilter}>
+        <select>
           {["Male", "Female", "unknown", "Genderless"].map((gender) => (
             <option key={gender} value={gender}>
               {gender}
@@ -71,7 +38,7 @@ const Favorites = () => {
           ))}
         </select>
         <span>Sort by Name: </span>
-        <select onChange={handleOrder}>
+        <select>
           {["Name A-Z", "Name Z-A"].map((order) => (
             <option key={order} value={order}>
               {order}

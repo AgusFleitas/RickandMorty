@@ -1,12 +1,13 @@
 import {
   SEARCH_BY_ID, 
-  ADD_FAV, 
-  REMOVE_FAV, 
+  DELETE_FROM_HOME,
+  SET_CHARACTERS,
+  ADD_FAV,
+  REMOVE_FAV,
+  SET_FAVORITES, 
   FILTER, 
   ORDER, 
-  RESET, 
-  DELETE_FROM_HOME,
-  SET_CHARACTERS
+  RESET
 } from "./action-types";
 import axios from "axios";
 
@@ -41,6 +42,34 @@ export const setCharacters = (characters) => {
     payload: characters,
   };
 }
+
+export const setFavs = (userID, userToken) => {
+  console.log("Se ejecuta el setFavs");
+  const endpoint = `http://localhost:3001/favcharacters`
+
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(endpoint,
+        {
+          params: {
+            userID
+          },
+          headers: {
+            Authorization: `Bearer ${userToken}`,
+          },
+        }
+      );
+
+      return dispatch({
+        type: SET_FAVORITES,
+        payload: data,
+      });
+    } catch (error) {
+      console.log(error);
+      alert("Ocurrió un error al obtener los personajes favoritos: " + error);
+    }
+  }
+};
 
 export const addFav = (userID, charID) => {
   const endpoint = `http://localhost:3001/favcharacter`

@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { deleteChar, addFav, removeFav } from "../../redux/actions/actions";
+import { deleteChar, addFav, removeFav} from "../../redux/actions/actions";
 import { useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -99,10 +99,21 @@ function Card(props) {
     }
   }
 
+  function deleteFav(id) {
+    console.log("Ejecuto deleteFav desde Card");
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+
+    dispatch(removeFav(storedUser.id, character.id))
+  }
+
   return (
     <div className={style.cardContainer}>
       <span className={style.characterName}>{character.name}</span>
-      <Link to={`/detail/${character.id}`} className={style.redirects} title="Click to see more info about the character.">
+      <Link
+        to={`/detail/${character.id}`}
+        className={style.redirects}
+        title='Click to see more info about the character.'
+      >
         <div className={style.imageContainer}>
           <img src={character.image} alt='' />
         </div>
@@ -139,7 +150,13 @@ function Card(props) {
           </button>
         ))}
       {location.pathname === "/favorites" && (
-        <button className={style.delFav} title="Delete character from your favorites.">💔</button>
+        <button
+          className={style.delFav}
+          title='Delete character from your favorites.'
+          onClick={() => { deleteFav(character.id) }}
+        >
+          💔
+        </button>
       )}
       <div className={style.contentContainer}>
         <p>
