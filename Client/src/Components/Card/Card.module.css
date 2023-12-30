@@ -54,6 +54,10 @@
   cursor: pointer;
   font-size: 20px;
   color: rgb(110, 25, 179);
+
+  &:hover {
+    text-shadow: rgb(113, 90, 216) 0 0 5px;
+  }
 }
 
 .delete {

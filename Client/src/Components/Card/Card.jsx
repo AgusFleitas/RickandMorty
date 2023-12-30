@@ -125,6 +125,7 @@ function Card(props) {
             deleteFromHome(character.id);
           }}
           className={style.delete}
+          title="This will remove the character from your Home but if the character is marked as a favorite, it will still appear in your favorites list."
         >
           ❌
         </button>
@@ -133,6 +134,7 @@ function Card(props) {
         (isFav ? (
           <button
             className={style.favButton}
+            title="If you're seeing 💜 icon, pressing this button will remove the character from your favorites list."
             onClick={() => {
               favHandler(character.id);
             }}
@@ -142,6 +144,7 @@ function Card(props) {
         ) : (
           <button
             className={style.favButton}
+            title="If you're seeing 🤍 icon, pressing this button will add the character to your favorites list."
             onClick={() => {
               favHandler(character.id);
             }}
