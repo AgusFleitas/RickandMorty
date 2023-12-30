@@ -10,5 +10,5 @@ export const REMOVE_FAV = "REMOVE_FAV";
 
 // FILTERS.
 export const FILTER = "FILTER";
-export const ORDER = "ORDER";
+export const SORT = "SORT";
 export const RESET = "RESET";

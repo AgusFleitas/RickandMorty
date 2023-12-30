@@ -6,7 +6,7 @@ import {
   REMOVE_FAV,
   SET_FAVORITES, 
   FILTER, 
-  ORDER, 
+  SORT, 
   RESET
 } from "./action-types";
 import axios from "axios";
@@ -107,16 +107,16 @@ export const removeFav = (userID, charID) => {
   };
 };
 
-export const filterCards = (gender) => {
+export const filterBySpecies = (species) => {
   return {
     type: FILTER,
-    payload: gender,
+    payload: species,
   };
 };
 
-export const orderCards = (order) => {
+export const sortByName = (order) => {
   return {
-    type: ORDER,
+    type: SORT,
     payload: order,
   };
 };

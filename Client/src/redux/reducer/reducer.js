@@ -1,7 +1,7 @@
 import {
   SEARCH_BY_ID,
   FILTER,
-  ORDER,
+  SORT,
   RESET,
   DELETE_FROM_HOME,
   SET_CHARACTERS,
@@ -10,7 +10,7 @@ import {
   REMOVE_FAV,
 } from "../actions/action-types";
 
-let initialState = { myfavorites: [], allCharacters: [] };
+let initialState = { myfavorites: [], myfavoritesCopy: [], allCharacters: [] };
 
 function rootReducer(state = initialState, { type, payload }) {
   let sorted;
@@ -72,6 +72,7 @@ function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         myfavorites: currentFavorites,
+        myfavoritesCopy: currentFavorites,
       };
     }
 
@@ -89,6 +90,7 @@ function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         myfavorites: currentFavorites,
+        myfavoritesCopy: currentFavorites,
       };
     }
 
@@ -96,21 +98,22 @@ function rootReducer(state = initialState, { type, payload }) {
       return {
         ...state,
         myfavorites: payload,
+        myfavoritesCopy: payload,
       } 
 
-    case FILTER:
+    case FILTER: 
       return {
         ...state,
-        myfavorites: state.allCharacters.filter(
-          (character) => character.gender === payload
+        myfavorites: state.myfavoritesCopy.filter(
+          (character) => character.species === payload
         ),
       };
 
-    case ORDER:
-      if (payload === "Ascendente") {
-        sorted = state.myfavorites.sort((a, b) => (a.id > b.id ? 1 : -1));
+    case SORT:
+      if (payload === "Name A-Z") {
+        sorted = state.myfavorites.sort((a, b) => (a.name > b.name ? 1 : -1));
       } else {
-        sorted = state.myfavorites.sort((a, b) => (b.id > a.id ? 1 : -1));
+        sorted = state.myfavorites.sort((a, b) => (b.name > a.name ? 1 : -1));
       }
       return {
         ...state,
@@ -120,7 +123,7 @@ function rootReducer(state = initialState, { type, payload }) {
     case RESET:
       return {
         ...state,
-        myfavorites: state.allCharacters,
+        myfavorites: state.myfavoritesCopy,
       };
 
     default:
