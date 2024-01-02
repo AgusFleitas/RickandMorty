@@ -1,11 +1,14 @@
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { searchById, setCharacters } from "../../redux/actions/actions";
+import { useEffect, useState } from "react";
+
+import { logout } from "../../Helpers/ModalObjects";
 
 import SearchBar from "../SearchBar/SearchBar";
-import { searchById, setCharacters } from "../../redux/actions/actions";
+import Modal from "../Modal/Modal";
 
 import style from "./Nav.module.css";
-import { useEffect, useState } from "react";
 
 const Nav = () => {
   const dispatch = useDispatch();
@@ -19,7 +22,9 @@ const Nav = () => {
 
   // Estado para saber si cargamos personajes del LocalStorage.
   const [initialLoad, setInitialLoad] = useState(true);
-  
+
+  const [showModal, setShowModal] = useState(false);
+
   // useEffect para comprobar si hay una sesión y mostrar el saludo con el nombre.
   useEffect(() => {
     const userFromStorage = localStorage.getItem("user");
@@ -90,7 +95,7 @@ const Nav = () => {
     if (!existingChar) {
       searchHandler(randomId);
     }
-  } 
+  }
 
   // Cerrar sesión.
   function logoutHandler() {
@@ -115,18 +120,29 @@ const Nav = () => {
       >
         Add Random Char
       </button>
-      {username ? 
-      <div className={style.session}>
-        <span className={style.welcome}>Hi, {username}!</span>
-        <button className={style.logOut} onClick={logoutHandler}>
-          Log Out
-        </button>
-      </div>
-      : 
-      <div className={style.guest}>
-        <button className={style.logOut} onClick={() => navigate("/")}>Go to Login</button>
-      </div>
-      }
+      {username ? (
+        <div className={style.session}>
+          <span className={style.welcome}>Hi, {username}!</span>
+          <button className={style.logOut} onClick={() => {setShowModal(true)}}>
+            Log Out
+          </button>
+        </div>
+      ) : (
+        <div className={style.guest}>
+          <button className={style.logOut} onClick={() => navigate("/")}>
+            Go to Login
+          </button>
+        </div>
+      )}
+      {showModal && (
+        <Modal
+          title={logout.title}
+          message={logout.message}
+          actionName={logout.actionName}
+          actionFunc={logoutHandler}
+          cancelFunc={() => {setShowModal(false)}}
+        />
+      )}
     </div>
   );
 };
