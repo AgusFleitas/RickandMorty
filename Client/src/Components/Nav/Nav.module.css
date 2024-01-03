@@ -7,7 +7,7 @@
     background: rgba(104, 74, 160, 0.397);
     backdrop-filter: blur(10px);
     box-shadow: -5px 8px 10px rgb(0 0 0 /0.7);
-
+    z-index: 1;
 }
 
 .navLinks {
