@@ -38,15 +38,19 @@ const Nav = () => {
   // useEffect para cargar los personajes en el LocalStorage.
   useEffect(() => {
     const storedCharacters = JSON.parse(localStorage.getItem("allCharacters"));
-    if (storedCharacters && initialLoad) {
+    if (!storedCharacters && initialLoad) {
+      setInitialLoad(false);
+    } else if (storedCharacters) {
       dispatch(setCharacters(storedCharacters));
       setInitialLoad(false);
     }
   }, [dispatch, initialLoad]);
+  
 
   // useEffect para guardar los personajes en el localStorage.
   useEffect(() => {
     if (!initialLoad) {
+      console.log("Guardo los Char en el Storage");
       localStorage.setItem("allCharacters", JSON.stringify(allCharacters));
     }
   }, [allCharacters, initialLoad]);

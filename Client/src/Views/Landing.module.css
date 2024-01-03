@@ -15,7 +15,7 @@
 
 .wrapper {
   width: 420px;
-  margin-top: 100px;
+  margin-top: 40%;
   background: transparent;
   border: 2px solid rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(20px);
