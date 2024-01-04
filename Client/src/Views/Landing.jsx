@@ -150,6 +150,7 @@ const Landing = () => {
             <p>
               Don't have an account? <a href='/register'>Sign Up</a>
             </p>
+          <a className={style.guest} href='/home'>Enter as a guest</a>
           </div>
         </form>
       </div>

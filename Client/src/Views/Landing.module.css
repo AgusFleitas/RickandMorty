@@ -111,6 +111,8 @@
 }
 
 .registerLink {
+  display: flex;
+  flex-direction: column;
   font-size: 14.5px;
   text-align: center;
   margin: 20px 0 15px;
@@ -123,6 +125,14 @@
 }
 
 .registerLink p a:hover {
+  text-decoration: underline;
+}
+
+.guest {
+  text-decoration: none;
+  color: #ebebeb;
+  text-align: center;
+  margin-top: 10px;
   text-decoration: underline;
 }
 

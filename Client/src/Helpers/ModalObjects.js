@@ -22,6 +22,6 @@ export const exist = {
 export const login = {
   title: "HOLD YOUR HORSES!",
   message:
-    "You need to Log In if you want to see a favorite list of characters.",
+    "To check out your favorite characters, log in first. Once you do, you'll be able to add or remove characters with the buttons on each card!",
   actionName: "Continue",
 };
