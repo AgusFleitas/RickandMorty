@@ -13,6 +13,9 @@ function Card(props) {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  // Constante para saber si hay un usuario.
+  const storedUser = JSON.parse(localStorage.getItem("user"));
+
   // Variable para el color de la especie.
   let speciesClass;
 
@@ -47,27 +50,29 @@ function Card(props) {
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("http://localhost:3001/favcharacter", {
-          params: {
-            userID: storedUser.id,
-            charID: character.id,
-          },
-        });
-
-        if (response.data) {
-          setIsFav(true);
+    if (storedUser) {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get("http://localhost:3001/favcharacter", {
+            params: {
+              userID: storedUser.id,
+              charID: character.id,
+            },
+          });
+  
+          if (response.data) {
+            setIsFav(true);
+          }
+        } catch (error) {
+          console.log(error);
+          alert(
+            "Error al consultar si es favorito: " + error.response.data.Error
+          );
         }
-      } catch (error) {
-        console.log(error);
-        alert(
-          "Error al consultar si es favorito: " + error.response.data.Error
-        );
-      }
-    };
-
-    fetchData();
+      };
+  
+      fetchData();
+    }
   }, [character.id]);
 
   // Variable para el color del status.
@@ -100,11 +105,12 @@ function Card(props) {
   }
 
   function deleteFav(id) {
-    console.log("Ejecuto deleteFav desde Card");
     const storedUser = JSON.parse(localStorage.getItem("user"));
 
-    dispatch(removeFav(storedUser.id, character.id))
+    dispatch(removeFav(storedUser.id, id))
   }
+
+  
 
   return (
     <div className={style.cardContainer}>
@@ -133,7 +139,7 @@ function Card(props) {
       {location.pathname === "/home" &&
         (isFav ? (
           <button
-            className={style.favButton}
+            className={storedUser ? (style.favButton) : (style.favButtonNone)}
             title="If you're seeing 💜 icon, pressing this button will remove the character from your favorites list."
             onClick={() => {
               favHandler(character.id);
@@ -143,7 +149,7 @@ function Card(props) {
           </button>
         ) : (
           <button
-            className={style.favButton}
+            className={storedUser ? (style.favButton) : (style.favButtonNone)}
             title="If you're seeing 🤍 icon, pressing this button will add the character to your favorites list."
             onClick={() => {
               favHandler(character.id);

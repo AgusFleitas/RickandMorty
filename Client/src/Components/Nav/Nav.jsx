@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchById, setCharacters } from "../../redux/actions/actions";
 import { useEffect, useState } from "react";
 
-import { logout, search, exist } from "../../Helpers/ModalObjects";
+import { logout, search, exist, login } from "../../Helpers/ModalObjects";
 
 import SearchBar from "../SearchBar/SearchBar";
 import Modal from "../Modal/Modal";
@@ -16,21 +16,28 @@ const Nav = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const regEx = /^[1-9]\d{0,2}$|^826$/;
-
   const allCharacters = useSelector((state) => state.allCharacters);
 
+  // RegEx que utiliza la SearchBar.
+  const regEx = /^[1-9]\d{0,2}$|^826$/;
+  
   // Estado para saber el nombre del usuario en caso de que haya logueado.
   const [username, setUserName] = useState(null);
 
   // Estado para saber si cargamos personajes del LocalStorage.
   const [initialLoad, setInitialLoad] = useState(true);
 
+  // Estado para mostrar/ocultar el modal de LogOut.
   const [showModal, setShowModal] = useState(false);
 
+  // Estado para mostrar/ocultar la notificación de la SearchBar.
   const [showNotification, setShowNotification] = useState(false);
 
+  // Estado para mostrar/ocultar la notificación de un personaje existente.
   const [showNotifExist, setShowNotifExist] = useState(false);
+
+  // Estado para mostrar/ocultar la notificación para Favoritos.
+  const [showLogIn, setShowLogIn] = useState(false);
 
   // useEffect para comprobar si hay una sesión y mostrar el saludo con el nombre.
   useEffect(() => {
@@ -83,6 +90,17 @@ const Nav = () => {
     }
   }
 
+  // Función que verifica una sesión para ir a Favorites.
+  const handleFavoritesClick = (event) => {
+    const userFromStorage = localStorage.getItem("user");
+
+    if (!userFromStorage) {
+
+      event.preventDefault();
+      setShowLogIn(true);
+    }
+  };
+
   // Añadir un personaje random al presionar el botón.
   function randomHandler() {
     if (allCharacters.length === 0) {
@@ -100,7 +118,7 @@ const Nav = () => {
 
     for (let char of allCharacters) {
       if (char.id === randomId) {
-        alert(`Character with ID ${randomId} already exists!`);
+        setShowNotifExist(true)
         return;
       } else {
         existingChar = false;
@@ -119,6 +137,7 @@ const Nav = () => {
     navigate("/");
   }
 
+  // Condicional para añadir una clase al body y deshabilitar momentaneamente la scrollbar.
   if(showModal || showNotification || showNotifExist) {
     document.body.classList.add('activeModal')
   } else {
@@ -128,9 +147,9 @@ const Nav = () => {
   return (
     <div className={style.interno}>
       <div className={style.navLinks}>
-        <Link to='/home'>Home</Link>
-        <Link to='/favorites'>Favorites</Link>
-        <Link to='/about'>About</Link>
+        <Link to='/home' title="Go to Home.">Home</Link>
+        <Link to='/favorites' title="Click to see your Favorite Characters." onClick={handleFavoritesClick}>Favorites</Link>
+        <Link to='/about' title="Read more info about the autor of the website.">About</Link>
       </div>
       <SearchBar onSearch={searchHandler} />
       <button
@@ -144,13 +163,13 @@ const Nav = () => {
       {username ? (
         <div className={style.session}>
           <span className={style.welcome}>Hi, {username}!</span>
-          <button className={style.logOut} onClick={() => {setShowModal(true)}}>
+          <button className={style.logOut} title="Log Out button." onClick={() => {setShowModal(true)}}>
             Log Out
           </button>
         </div>
       ) : (
         <div className={style.guest}>
-          <button className={style.logOut} onClick={() => navigate("/")}>
+          <button className={style.logOut} title="Click to go Login." onClick={() => navigate("/")}>
             Go to Login
           </button>
         </div>
@@ -178,6 +197,14 @@ const Nav = () => {
           message={exist.message}
           actionName={exist.actionName}
           cancelFunc={() => {setShowNotifExist(false)}}
+        />
+      )}
+      {showLogIn && (
+        <Notification
+          title={login.title}
+          message={login.message}
+          actionName={login.actionName}
+          cancelFunc={() => {setShowLogIn(false)}}
         />
       )}
     </div>

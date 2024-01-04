@@ -18,3 +18,10 @@ export const exist = {
     "It seems this character is already in your Home. Try with other ID.",
   actionName: "Continue",
 };
+
+export const login = {
+  title: "HOLD YOUR HORSES!",
+  message:
+    "You need to Log In if you want to see a favorite list of characters.",
+  actionName: "Continue",
+};
