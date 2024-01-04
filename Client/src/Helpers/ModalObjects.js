@@ -11,3 +11,10 @@ export const search = {
     "It looks like you entered something other than a number between 1 and 826. Please enter a number within that range!",
   actionName: "Continue",
 };
+
+export const exist = {
+  title: "AW JEEZ!",
+  message:
+    "It seems this character is already in your Home. Try with other ID.",
+  actionName: "Continue",
+};

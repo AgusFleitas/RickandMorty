@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchById, setCharacters } from "../../redux/actions/actions";
 import { useEffect, useState } from "react";
 
-import { logout, search } from "../../Helpers/ModalObjects";
+import { logout, search, exist } from "../../Helpers/ModalObjects";
 
 import SearchBar from "../SearchBar/SearchBar";
 import Modal from "../Modal/Modal";
@@ -29,6 +29,8 @@ const Nav = () => {
   const [showModal, setShowModal] = useState(false);
 
   const [showNotification, setShowNotification] = useState(false);
+
+  const [showNotifExist, setShowNotifExist] = useState(false);
 
   // useEffect para comprobar si hay una sesión y mostrar el saludo con el nombre.
   useEffect(() => {
@@ -75,7 +77,7 @@ const Nav = () => {
     let exists = allCharacters.some((char) => char.id === numberID);
 
     if (exists) {
-      alert(`Character with ID ${id} already exists!`);
+      setShowNotifExist(true)
     } else {
       dispatch(searchById(id));
     }
@@ -117,18 +119,10 @@ const Nav = () => {
     navigate("/");
   }
 
-  if(showModal) {
-    console.log(document.body)
+  if(showModal || showNotification || showNotifExist) {
     document.body.classList.add('activeModal')
   } else {
     document.body.classList.remove('activeModal')
-  }
-
-  if(showNotification) {
-    console.log(document.body)
-    document.body.classList.add('activeNotif')
-  } else {
-    document.body.classList.remove('activeNotif')
   }
 
   return (
@@ -176,6 +170,14 @@ const Nav = () => {
           message={search.message}
           actionName={search.actionName}
           cancelFunc={() => {setShowNotification(false)}}
+        />
+      )}
+      {showNotifExist && (
+        <Notification
+          title={exist.title}
+          message={exist.message}
+          actionName={exist.actionName}
+          cancelFunc={() => {setShowNotifExist(false)}}
         />
       )}
     </div>
