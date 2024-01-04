@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { searchById, setCharacters } from "../../redux/actions/actions";
 import { useEffect, useState } from "react";
 
-import { logout } from "../../Helpers/ModalObjects";
+import { logout, search } from "../../Helpers/ModalObjects";
 
 import SearchBar from "../SearchBar/SearchBar";
 import Modal from "../Modal/Modal";
+import Notification from "../Notification/Notification";
 
 import style from "./Nav.module.css";
 
@@ -14,6 +15,8 @@ const Nav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+
+  const regEx = /^[1-9]\d{0,2}$|^826$/;
 
   const allCharacters = useSelector((state) => state.allCharacters);
 
@@ -24,6 +27,8 @@ const Nav = () => {
   const [initialLoad, setInitialLoad] = useState(true);
 
   const [showModal, setShowModal] = useState(false);
+
+  const [showNotification, setShowNotification] = useState(false);
 
   // useEffect para comprobar si hay una sesión y mostrar el saludo con el nombre.
   useEffect(() => {
@@ -50,13 +55,17 @@ const Nav = () => {
   // useEffect para guardar los personajes en el localStorage.
   useEffect(() => {
     if (!initialLoad) {
-      console.log("Guardo los Char en el Storage");
       localStorage.setItem("allCharacters", JSON.stringify(allCharacters));
     }
   }, [allCharacters, initialLoad]);
 
   // Añadir un personaje por ID en la barra de búsqueda.
   async function searchHandler(id) {
+    if (!regEx.test(id)) {
+      setShowNotification(true)
+      return;
+    }
+
     if (allCharacters.length === 0) {
       dispatch(searchById(id));
       return;
@@ -108,6 +117,20 @@ const Nav = () => {
     navigate("/");
   }
 
+  if(showModal) {
+    console.log(document.body)
+    document.body.classList.add('activeModal')
+  } else {
+    document.body.classList.remove('activeModal')
+  }
+
+  if(showNotification) {
+    console.log(document.body)
+    document.body.classList.add('activeNotif')
+  } else {
+    document.body.classList.remove('activeNotif')
+  }
+
   return (
     <div className={style.interno}>
       <div className={style.navLinks}>
@@ -145,6 +168,14 @@ const Nav = () => {
           actionName={logout.actionName}
           actionFunc={logoutHandler}
           cancelFunc={() => {setShowModal(false)}}
+        />
+      )}
+      {showNotification && (
+        <Notification
+          title={search.title}
+          message={search.message}
+          actionName={search.actionName}
+          cancelFunc={() => {setShowNotification(false)}}
         />
       )}
     </div>

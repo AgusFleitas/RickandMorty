@@ -20,7 +20,7 @@ export default function SearchBar({onSearch}) {
   }
 
   function handleKeyPress(event) {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter' && id !== "") {
       onSearch(id);
       setId("")
     }
@@ -37,7 +37,7 @@ export default function SearchBar({onSearch}) {
         placeholder="Number from 1 to 826"
         disabled={location.pathname !== "/home"}
       />
-      <button onClick={handleSearch} disabled={location.pathname !== "/home"}>
+      <button onClick={handleSearch} disabled={(location.pathname !== "/home") || (id === "")}>
        Search
       </button>
     </div>

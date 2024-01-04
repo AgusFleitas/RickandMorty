@@ -1,103 +1,102 @@
 .interno {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    height: 60px;
-    padding: 0 15px;
-    background: rgba(104, 74, 160, 0.397);
-    backdrop-filter: blur(10px);
-    box-shadow: -5px 8px 10px rgb(0 0 0 /0.7);
-    z-index: 1;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 60px;
+  padding: 0 15px;
+  background: rgba(104, 74, 160, 0.397);
+  backdrop-filter: blur(10px);
+  box-shadow: -5px 8px 10px rgb(0 0 0 /0.7);
+  z-index: 1;
 }
 
 .navLinks {
-    width: 400px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+  width: 400px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .navLinks a {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 10px;
-    width: 100px;
-    height: 100%;
-    text-decoration: none;
-    font-size: 16px;
-    background: transparent;
-    font-weight: bold;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  width: 100px;
+  height: 100%;
+  text-decoration: none;
+  font-size: 16px;
+  background: transparent;
+  font-weight: bold;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.6);
 
-    &:hover {
-        background: rgba(255, 255, 255, 0.6);
-        color: #555;
-        cursor: pointer;
-    }
+  &:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: #555;
+    cursor: pointer;
+  }
 }
 
 .random {
-    width: 150px;
-    height: 70%;
-    align-self: center;
-    background: transparent;
-    border: 2px solid rgb(255, 255, 255, 0.2);
-    border-radius: 5px;
-    font-weight: bold;
-    color: rgba(255, 255, 255, 0.6);
+  width: 150px;
+  height: 70%;
+  align-self: center;
+  background: transparent;
+  border: 2px solid rgb(255, 255, 255, 0.2);
+  border-radius: 5px;
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.6);
 
-    &:hover {
-        background: rgba(255, 255, 255, 0.6);
-        color: #555;
-        cursor: pointer;
-    }
+  &:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: #555;
+    cursor: pointer;
+  }
 
-    &:disabled {
-        border: 2px solid rgb(255, 255, 255, 0.1);
-        color: rgba(255, 255, 255, 0.2);
-        background: rgba(255, 255, 255, 0.3);
-    }
+  &:disabled {
+    border: 2px solid rgb(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.3);
+  }
 
-    &:disabled:hover {
-        cursor: default;
-        
-    }
+  &:disabled:hover {
+    cursor: default;
+  }
 }
 
 .guest {
-    display: flex;
+  display: flex;
 }
 
 .logOut {
-    height: 70%;
-    align-self: center;
-    background: transparent;
-    border: 2px solid rgb(255, 255, 255, 0.2);
-    border-radius: 5px;
-    font-weight: bold;
-    padding: 0 8px;
-    color: rgba(255, 255, 255, 0.6);
+  height: 70%;
+  align-self: center;
+  background: transparent;
+  border: 2px solid rgb(255, 255, 255, 0.2);
+  border-radius: 5px;
+  font-weight: bold;
+  padding: 0 8px;
+  color: rgba(255, 255, 255, 0.6);
 
-    &:hover {
-        background: rgba(255, 255, 255, 0.6);
-        color: #555;
-        cursor: pointer;
-    }
+  &:hover {
+    background: rgba(255, 255, 255, 0.6);
+    color: #555;
+    cursor: pointer;
+  }
 }
 
 .session {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 350px;
 }
 
 .welcome {
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: bold;
-    font-size: 19px;
-    text-shadow: -3px 3px 2px black;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: bold;
+  font-size: 19px;
+  text-shadow: -3px 3px 2px black;
 }
