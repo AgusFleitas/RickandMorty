@@ -2,9 +2,10 @@
   background: url(../Images/register-background.png);
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: fill;
   animation: colores 12s infinite alternate;
   color: #fff;
+  min-height: 100vh;
 }
 
 .Form {

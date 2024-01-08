@@ -7,8 +7,9 @@ import Favorites from "./Views/Favorites.jsx";
 import About from "./Views/About.jsx";
 import Detail from "./Views/Detail.jsx";
 import Landing from "./Views/Landing.jsx";
-import ErrorPage from "./Views/ErrorPage.jsx";
 import Register from "./Views/Register.jsx";
+import ForgotPassword from "./Views/ForgotPassword.jsx";
+import ErrorPage from "./Views/ErrorPage.jsx";
 
 import style from "./App.module.css";
 
@@ -19,7 +20,7 @@ function App() {
 
   return (
     <div className={style.App}>
-      {location.pathname !== "/" && location.pathname !== "/register" && (
+      {location.pathname !== "/" && location.pathname !== "/register" && location.pathname !== "/forgotpassword" && (
         <Nav />
       )}
       <Routes>
@@ -29,6 +30,7 @@ function App() {
         <Route path='/favorites' element={<Favorites />} />
         <Route path='/about' element={<About />} />
         <Route path='/detail/:id' element={<Detail />} />
+        <Route path='/forgotpassword' element={<ForgotPassword />} />
         <Route path='*' element={<ErrorPage />} />
       </Routes>
     </div>

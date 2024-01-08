@@ -101,13 +101,13 @@ const Register = () => {
 
     registerHandler(userData);
 
-    // setuserData({
-    //   name: "",
-    //   email: "",
-    //   password: "",
-    //   confirmPassword: "",
-    //   country: "",
-    // })
+    setuserData({
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      country: "",
+    })
   }
 
   return (
@@ -121,7 +121,7 @@ const Register = () => {
               <input
                 type='text'
                 name='name'
-                placeholder='Ej: Mike Johnson'
+                placeholder='Ex: Mike Johnson'
                 onChange={handleChange}
                 value={userData.name}
               />

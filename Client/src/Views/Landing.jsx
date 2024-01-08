@@ -137,7 +137,7 @@ const Landing = () => {
               <input type='checkbox' title="For security reasons, only your username will be saved. You must complete your password next time you need to login."/>
               Remember email
             </label>
-            <a href='#'>Forgot password?</a>
+            <a href='/forgotpassword'>Forgot password?</a>
           </div>
           <button
             className={style.btn}
