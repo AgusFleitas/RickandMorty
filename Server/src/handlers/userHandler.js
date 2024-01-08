@@ -1,7 +1,7 @@
 const {
   createUserController,
   loginUserController,
-  resetPasswordController,
+  forgotPasswordController,
 } = require("../controllers/userController");
 
 const createUser = async (req, res) => {
@@ -24,13 +24,15 @@ const loginUser = async (req, res) => {
   }
 };
 
-const resetPassword = async (req, res) => {
+const forgotPassword = async (req, res) => {
+  const { email } = req.body
+
   try {
-    const response = await resetPasswordController();
+    const response = await forgotPasswordController(email);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(400).json({ Error: error.message });
   }
 };
 
-module.exports = { createUser, loginUser, resetPassword };
+module.exports = { createUser, loginUser, forgotPassword };

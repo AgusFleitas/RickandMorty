@@ -44,7 +44,6 @@ export const setCharacters = (characters) => {
 }
 
 export const setFavs = (userID, userToken) => {
-  console.log("Se ejecuta el setFavs");
   const endpoint = `http://localhost:3001/favcharacters`
 
   return async (dispatch) => {

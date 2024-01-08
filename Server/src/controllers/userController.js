@@ -1,6 +1,8 @@
 const { User } = require("../DB-Config");
 const { encrypt, compare } = require("../helpers/handleBcrypt");
-const { tokenSign } = require("../helpers/generateToken")
+const { tokenSign, tokenSignResetPass } = require("../helpers/generateToken");
+const { transporter } = require("../config/mailer");
+const { passwordForgot } = require("../helpers/mailObject");
 
 const createUserController = async (userData) => {
   const { name, email, password, country } = userData;
@@ -41,24 +43,36 @@ const loginUserController = async (email, password) => {
     if (!checkPassword) {
       throw new Error("Invalid password.");
     } else {
-      const tokenSession = await tokenSign(userFound)
-      return {user: userFound, tokenSession};
+      const tokenSession = await tokenSign(userFound);
+      return { user: userFound, tokenSession };
     }
   }
 };
 
-const resetPasswordController = async (email) => {
+const forgotPasswordController = async (email) => {
   const userFound = await User.findOne({
     where: {
       email,
     },
   });
 
-  // Nodemailer para el reseteo de contraseña
+  if (!userFound) {
+    throw new Error("User not found with the email.");
+  } else {
+    const token = await tokenSignResetPass(userFound);
+
+    userFound.resetPasswordToken = token;
+    await userFound.save();
+
+    const mailResponse = await transporter.sendMail(
+      passwordForgot(email, token)
+    );
+    return mailResponse;
+  }
 };
 
 module.exports = {
   createUserController,
   loginUserController,
-  resetPasswordController,
+  forgotPasswordController,
 };

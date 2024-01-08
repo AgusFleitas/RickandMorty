@@ -14,6 +14,18 @@ const tokenSign = async (user) => {
   );
 };
 
+const tokenSignResetPass = async (user) => {
+  return jwt.sign(
+    {
+      id: user.id,
+    },
+    process.env.JWT_SECRET,
+    {
+      expiresIn: "30m",
+    }
+  );
+};
+
 const verifyToken = async (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
@@ -22,4 +34,4 @@ const verifyToken = async (token) => {
   }
 };
 
-module.exports = { tokenSign, verifyToken };
+module.exports = { tokenSign, tokenSignResetPass, verifyToken };
