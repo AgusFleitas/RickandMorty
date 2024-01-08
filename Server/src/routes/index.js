@@ -13,8 +13,9 @@ const {
   createUser,
   loginUser,
   forgotPassword,
+  resetPassword
 } = require("../handlers/userHandler");
-const { checkAuth } = require("../middleware/auth");
+const { checkAuth, checkTokenForPass } = require("../middleware/auth");
 
 const router = require("express").Router();
 
@@ -28,5 +29,6 @@ router.delete("/favcharacter", deleteFavCharacter); // Funciona ✅
 router.get("/favcharacter", getOneFav); // Funciona ✅
 router.get("/favcharacters", checkAuth, getAllFavs); // Funciona ✅
 router.post("/forgot-password", forgotPassword); // Funciona ✅
+router.put("/reset-password", checkTokenForPass, resetPassword); 
 
 module.exports = router;

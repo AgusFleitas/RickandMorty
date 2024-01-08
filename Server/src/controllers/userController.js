@@ -71,8 +71,26 @@ const forgotPasswordController = async (email) => {
   }
 };
 
+const resetPasswordController = async (email, newPassword) => {
+  const userFound = await User.findOne({
+    where: {
+      email,
+    },
+  });
+
+  if (!userFound) {
+    throw new Error("User not found with the email.");
+  } else {
+    const hashPassword = await encrypt(newPassword);
+
+    await userFound.update({ password: hashPassword });
+
+    return userFound;
+  }
+};
 module.exports = {
   createUserController,
   loginUserController,
   forgotPasswordController,
+  resetPasswordController,
 };

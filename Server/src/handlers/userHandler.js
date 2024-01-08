@@ -2,6 +2,7 @@ const {
   createUserController,
   loginUserController,
   forgotPasswordController,
+  resetPasswordController,
 } = require("../controllers/userController");
 
 const createUser = async (req, res) => {
@@ -14,7 +15,7 @@ const createUser = async (req, res) => {
 };
 
 const loginUser = async (req, res) => {
-  const { email, password } = req.body
+  const { email, password } = req.body;
 
   try {
     const response = await loginUserController(email, password);
@@ -25,7 +26,7 @@ const loginUser = async (req, res) => {
 };
 
 const forgotPassword = async (req, res) => {
-  const { email } = req.body
+  const { email } = req.body;
 
   try {
     const response = await forgotPasswordController(email);
@@ -35,4 +36,15 @@ const forgotPassword = async (req, res) => {
   }
 };
 
-module.exports = { createUser, loginUser, forgotPassword };
+const resetPassword = async (req, res) => {
+  const { email, newPassword } = req.body;
+
+  try {
+    const response = await resetPasswordController(email, newPassword);
+    return res.status(200).json(response);
+  } catch (error) {
+    return res.status(400).json({ Error: error.message });
+  }
+};
+
+module.exports = { createUser, loginUser, forgotPassword, resetPassword };
