@@ -19,7 +19,7 @@ const Nav = () => {
   const allCharacters = useSelector((state) => state.allCharacters);
 
   // RegEx que utiliza la SearchBar.
-  const regEx = /^(?:[1-9]|[1-9][0-9]|[1-7][0-9]{2}|826)$/;
+  const regEx = /^(?:[1-9]|[1-9][0-9]|[1-7][0-9]{2}|8[0-1][0-9]|82[0-6])$/;
   
   // Estado para saber el nombre del usuario en caso de que haya logueado.
   const [username, setUserName] = useState(null);
@@ -113,6 +113,7 @@ const Nav = () => {
     let randomId = (Math.random() * 826).toFixed();
 
     randomId = parseInt(randomId);
+    console.log(randomId);
 
     let existingChar = true;
 
