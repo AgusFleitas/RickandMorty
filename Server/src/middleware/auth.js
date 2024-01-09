@@ -20,13 +20,13 @@ const checkTokenForPass = async (req, res, next) => {
     const token = req.headers.authorization.split(" ").pop();
     const tokenData = await verifyToken(token);
 
-    if (tokenData.id) {
-      next();
+    if (!tokenData.id) {
+      throw new Error(tokenData.error)
     } else {
-      return res.status(403).json({ Error: "Authorization required to proceed with this action." });
+      next();
     }
   } catch (error) {
-    return res.status(403).json({ Error: "Authorization required to proceed with this action." });
+    return res.status(403).json({ Error: error.message });
   }
 };
 

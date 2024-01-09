@@ -18,6 +18,7 @@ const tokenSignResetPass = async (user) => {
   return jwt.sign(
     {
       id: user.id,
+      email: user.email,
     },
     process.env.JWT_SECRET,
     {
@@ -30,7 +31,13 @@ const verifyToken = async (token) => {
   try {
     return jwt.verify(token, process.env.JWT_SECRET);
   } catch (error) {
-    return null;
+    if (error.name === 'TokenExpiredError') {
+      return { error: 'Token expired' };
+    } else if (error.name === 'JsonWebTokenError') {
+      return { error: 'Invalid token' };
+    } else {
+      return { error: 'Unexpected error' };
+    }
   }
 };
 

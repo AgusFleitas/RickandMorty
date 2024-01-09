@@ -1,9 +1,13 @@
-function ErrorPage() {
+import background from "../Images/errorpage.png"
+
+import style from "./ErrorPage.module.css"
+
+const ErrorPage = () => {
   return (
-    <div>
-      <h2>Esta es la página de Error X_X</h2>
+    <div className={style.error}>
+      <img src={background} alt="Rick with a message expressing the frustration of finding nothing."/>
     </div>
-  );
+  )
 }
 
 export default ErrorPage;

@@ -29,6 +29,6 @@ router.delete("/favcharacter", deleteFavCharacter); // Funciona ✅
 router.get("/favcharacter", getOneFav); // Funciona ✅
 router.get("/favcharacters", checkAuth, getAllFavs); // Funciona ✅
 router.post("/forgot-password", forgotPassword); // Funciona ✅
-router.put("/reset-password", checkTokenForPass, resetPassword); 
+router.put("/reset-password", checkTokenForPass, resetPassword); // Funciona ✅
 
 module.exports = router;

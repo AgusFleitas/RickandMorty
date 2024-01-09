@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-import validate from "../Helpers/PasswordValidations";
+import validate from "../Helpers/ForgotValidations";
 
 import style from "./ForgotPassword.module.css";
 
@@ -66,8 +66,8 @@ const ForgotPassword = () => {
   }
 
   return (
-    <div className={style.register}>
-      <div className={style.Form}>
+    <div className={style.forgot}>
+      <div className={style.form}>
         <div className={style.wrapper}>
           <form onSubmit={submitHandler}>
             <h1>Forgot your password?</h1>
