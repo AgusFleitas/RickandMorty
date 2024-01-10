@@ -2,11 +2,18 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
+import Notification from "../../Components/Notification/Notification";
+
+import { noEmail, emailSended } from "../../Helpers/ModalObjects";
 import validate from "../../Helpers/ForgotValidations";
 
 import style from "./ForgotPassword.module.css";
 
 const ForgotPassword = () => {
+  // Estado para mostrar/ocultar las notificaciones.
+  const [showNotifNoEmail, setShowNotifNoEmail] = useState(false);
+  const [showNotifEmailSended, setShowNotifEmailSended] = useState(false);
+
   const [userEmail, setuserEmail] = useState({
     email: "",
   });
@@ -36,14 +43,12 @@ const ForgotPassword = () => {
       const response = await axios.post(URL, userEmail);
 
       if (response.data) {
-        alert(
-          "A confirmation email has been sent with a link to reset your password. Please check your inbox."
-        );
+        setShowNotifEmailSended(true);
         setuserEmail({ email: "" });
       }
     } catch (error) {
-      alert(error.response.data.Error);
-      console.log(error);
+      setShowNotifNoEmail(true);
+      return;
     }
   };
 
@@ -59,10 +64,6 @@ const ForgotPassword = () => {
     }
 
     forgotHandler(userEmail);
-
-    setuserEmail({
-      email: "",
-    });
   }
 
   return (
@@ -91,6 +92,26 @@ const ForgotPassword = () => {
           </form>
         </div>
       </div>
+      {showNotifNoEmail && (
+        <Notification
+          title={noEmail.title}
+          message={noEmail.message}
+          actionName={noEmail.actionName}
+          cancelFunc={() => {
+            setShowNotifNoEmail(false);
+          }}
+        />
+      )}
+      {showNotifEmailSended && (
+        <Notification
+          title={emailSended.title}
+          message={emailSended.message}
+          actionName={emailSended.actionName}
+          cancelFunc={() => {
+            setShowNotifEmailSended(false);
+          }}
+        />
+      )}
     </div>
   );
 };

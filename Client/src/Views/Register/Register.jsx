@@ -2,6 +2,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
+import { registerSuccess, emailExist } from "../../Helpers/ModalObjects";
+
+import Notification from "../../Components/Notification/Notification";
 import countryNames from "../../Helpers/Countries";
 import validate from "../../Helpers/RegisterValidations";
 
@@ -10,6 +13,11 @@ import style from "./Register.module.css";
 const Register = () => {
   const navigate = useNavigate();
 
+  // Estado para mostrar/ocultar las notificaciones.
+  const [showNotifExist, setShowNotifExist] = useState(false);
+  const [showNotifSuccess, setShowNotifSuccess] = useState(false);
+
+// Estado que guarda la data escrita en los inputs.
   const [userData, setuserData] = useState({
     name: "",
     email: "",
@@ -18,6 +26,7 @@ const Register = () => {
     country: "",
   });
 
+  // Estado que almacena los errores de cada input.
   const [errors, setErrors] = useState({
     name: "",
     email: "",
@@ -33,9 +42,9 @@ const Register = () => {
       ...userData,
       [name]: value,
     };
-  
+
     setuserData(updatedUserData);
-  
+
     const fieldErrors = validate(updatedUserData);
     setErrors(fieldErrors);
   };
@@ -50,12 +59,19 @@ const Register = () => {
       const { data } = await axios.post(URL, userData);
 
       if (data) {
-        alert("Register successfully. We'll redirect you to the login section again.")
-        navigate("/");
+        setuserData({
+          name: "",
+          email: "",
+          password: "",
+          confirmPassword: "",
+          country: "",
+        });
+
+        setShowNotifSuccess(true);
       }
     } catch (error) {
-      alert(error.response.data.Error)
-      console.log(error);
+      setShowNotifExist(true);
+      return;
     }
   };
 
@@ -100,14 +116,13 @@ const Register = () => {
     }
 
     registerHandler(userData);
+  }
 
-    setuserData({
-      name: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      country: "",
-    })
+  // Condicional para añadir una clase al body y deshabilitar momentaneamente la scrollbar.
+  if (showNotifExist || showNotifSuccess) {
+    document.body.classList.add("activeModal");
+  } else {
+    document.body.classList.remove("activeModal");
   }
 
   return (
@@ -162,11 +177,11 @@ const Register = () => {
             </div>
             <div className={style.inputBox}>
               <label className={style.labels}>Select your country:</label>
-              <select 
-              className={style.countries} 
-              name='country'
-              onChange={handleChange}
-              value={userData.country}
+              <select
+                className={style.countries}
+                name='country'
+                onChange={handleChange}
+                value={userData.country}
               >
                 <option hidden defaultValue>
                   Select your country
@@ -189,6 +204,26 @@ const Register = () => {
           </form>
         </div>
       </div>
+      {showNotifExist && (
+        <Notification
+          title={emailExist.title}
+          message={emailExist.message}
+          actionName={emailExist.actionName}
+          cancelFunc={() => {
+            setShowNotifExist(false);
+          }}
+        />
+      )}
+      {showNotifSuccess && (
+        <Notification
+          title={registerSuccess.title}
+          message={registerSuccess.message}
+          actionName={registerSuccess.actionName}
+          cancelFunc={() => {
+            navigate("/");
+          }}
+        />
+      )}
     </div>
   );
 };

@@ -1,14 +1,22 @@
 import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { noEmail, wrongPass } from "../../Helpers/ModalObjects";
 import axios from "axios";
 import "boxicons";
 
+import Notification from "../../Components/Notification/Notification";
 import landingVideo from "../../video/landing.mp4";
 import validate from "../../Helpers/LoginValidations";
 
 import style from "./Landing.module.css";
 
 const Landing = () => {
+  const navigate = useNavigate();
+
+  // Estados para mostrar/ocultar la notificación de errores.
+  const [showNotifNoEmail, setShowNotifNoEmail] = useState(false);
+  const [showNotifWrongPass, setShowNotifWrongPass] = useState(false);
+
   // Estado para el formulario.
   const [userData, setuserData] = useState({
     email: "",
@@ -25,18 +33,16 @@ const Landing = () => {
   const [isVideoPaused, setIsVideoPaused] = useState(false);
   const videoRef = useRef(null);
 
-  const navigate = useNavigate();
-
   // useEffect para comprobar si existe una sesión de usuario con un token vigente.
   useEffect(() => {
-    const userFromStorage = localStorage.getItem('user');
-    
+    const userFromStorage = localStorage.getItem("user");
+
     if (userFromStorage) {
       const { token } = JSON.parse(userFromStorage);
       const currentTime = Math.floor(Date.now() / 1000);
-      const tokenPayload = JSON.parse(window.atob(token.split('.')[1]))
+      const tokenPayload = JSON.parse(window.atob(token.split(".")[1]));
       if (tokenPayload.exp > currentTime) {
-        navigate("/home")
+        navigate("/home");
       }
     }
   });
@@ -48,9 +54,9 @@ const Landing = () => {
       ...userData,
       [name]: value,
     };
-  
+
     setuserData(updatedUserData);
-  
+
     const fieldErrors = validate(updatedUserData);
     setErrors(fieldErrors);
   };
@@ -60,13 +66,24 @@ const Landing = () => {
     try {
       const URL = "http://localhost:3001/loginNew";
       const { data } = await axios.post(URL, userData);
-  
+
       if (data) {
-        localStorage.setItem("user", JSON.stringify({ id: data.user.id, name: data.user.name, token: data.tokenSession}))
-        navigate("/home")
+        localStorage.setItem(
+          "user",
+          JSON.stringify({
+            id: data.user.id,
+            name: data.user.name,
+            token: data.tokenSession,
+          })
+        );
+        navigate("/home");
       }
     } catch (error) {
-      alert(error.response.data.Error)
+      if (error.response.data.Error === "No account exists with that email.") {
+        setShowNotifNoEmail(true);
+      } else {
+        setShowNotifWrongPass(true);
+      }
     }
   }
 
@@ -115,14 +132,14 @@ const Landing = () => {
               value={userData.email}
               onChange={handleChange}
               placeholder='example123@gmail.com'
-              title="Complete your email."
+              title='Complete your email.'
             />
             <box-icon type='solid' name='user' color='white'></box-icon>
             {errors.email && <span>{errors.email}</span>}
           </div>
           <div className={style.inputBox}>
             <input
-            title="Complete your password."
+              title='Complete your password.'
               type='password'
               name='password'
               value={userData.password}
@@ -134,7 +151,10 @@ const Landing = () => {
           </div>
           <div className={style.rememberForgot}>
             <label>
-              <input type='checkbox' title="For security reasons, only your username will be saved. You must complete your password next time you need to login."/>
+              <input
+                type='checkbox'
+                title='For security reasons, only your username will be saved. You must complete your password next time you need to login.'
+              />
               Remember email
             </label>
             <a href='/forgotpassword'>Forgot password?</a>
@@ -150,7 +170,9 @@ const Landing = () => {
             <p>
               Don't have an account? <a href='/register'>Sign Up</a>
             </p>
-          <a className={style.guest} href='/home'>Enter as a guest</a>
+            <a className={style.guest} href='/home'>
+              Enter as a guest
+            </a>
           </div>
         </form>
       </div>
@@ -165,6 +187,26 @@ const Landing = () => {
           <box-icon name='video-off' type='solid' color='#555'></box-icon>
         )}
       </button>
+      {showNotifNoEmail && (
+        <Notification
+          title={noEmail.title}
+          message={noEmail.message}
+          actionName={noEmail.actionName}
+          cancelFunc={() => {
+            setShowNotifNoEmail(false);
+          }}
+        />
+      )}
+      {showNotifWrongPass && (
+        <Notification
+          title={wrongPass.title}
+          message={wrongPass.message}
+          actionName={wrongPass.actionName}
+          cancelFunc={() => {
+            setShowNotifWrongPass(false);
+          }}
+        />
+      )}
       <div className={style.videoWrapper}>
         <video
           ref={videoRef}

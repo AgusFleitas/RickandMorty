@@ -113,7 +113,6 @@ const Nav = () => {
     let randomId = (Math.random() * 826).toFixed();
 
     randomId = parseInt(randomId);
-    console.log(randomId);
 
     let existingChar = true;
 
