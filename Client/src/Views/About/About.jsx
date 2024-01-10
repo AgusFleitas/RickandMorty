@@ -1,5 +1,5 @@
-import myphoto from "../Images/MyPhoto.jpg";
-import homeVideo from "../video/home.mp4";
+import myphoto from "../../Images/MyPhoto.jpg";
+import homeVideo from "../../video/home.mp4";
 
 import style from "./About.module.css";
 

@@ -3,15 +3,15 @@ import { Routes, Route, useLocation, useNavigate } from "react-router-dom";
 
 import Nav from "./Components/Nav/Nav.jsx";
 
-import Home from "./Views/Home.jsx";
-import Favorites from "./Views/Favorites.jsx";
-import About from "./Views/About.jsx";
-import Detail from "./Views/Detail.jsx";
-import Landing from "./Views/Landing.jsx";
-import Register from "./Views/Register.jsx";
-import ForgotPassword from "./Views/ForgotPassword.jsx";
-import ResetPassword from "./Views/ResetPassword.jsx";
-import ErrorPage from "./Views/ErrorPage.jsx";
+import Home from "./Views/Home/Home.jsx";
+import Favorites from "./Views/Favorites/Favorites.jsx";
+import About from "./Views/About/About.jsx";
+import Detail from "./Views/Detail/Detail.jsx";
+import Landing from "./Views/Landing/Landing.jsx";
+import Register from "./Views/Register/Register.jsx";
+import ForgotPassword from "./Views/ForgotPassword/ForgotPassword.jsx";
+import ResetPassword from "./Views/ResetPassword/ResetPassword.jsx";
+import ErrorPage from "./Views/ErrorPage/ErrorPage.jsx";
 
 import style from "./App.module.css";
 

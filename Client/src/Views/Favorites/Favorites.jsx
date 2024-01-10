@@ -5,10 +5,10 @@ import {
   filterBySpecies,
   sortByName,
   reset,
-} from "../redux/actions/actions";
+} from "../../redux/actions/actions";
 
-import Cards from "../Components/Cards/Cards";
-import homeVideo from "../video/home.mp4";
+import Cards from "../../Components/Cards/Cards";
+import homeVideo from "../../video/home.mp4";
 
 import style from "./Favorites.module.css";
 

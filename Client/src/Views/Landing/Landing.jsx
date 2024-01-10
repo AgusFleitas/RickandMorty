@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "boxicons";
 
-import landingVideo from "../video/landing.mp4";
-import validate from "../Helpers/LoginValidations";
+import landingVideo from "../../video/landing.mp4";
+import validate from "../../Helpers/LoginValidations";
 
 import style from "./Landing.module.css";
 

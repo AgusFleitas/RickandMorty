@@ -2,8 +2,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 
-import countryNames from "../Helpers/Countries";
-import validate from "../Helpers/RegisterValidations";
+import countryNames from "../../Helpers/Countries";
+import validate from "../../Helpers/RegisterValidations";
 
 import style from "./Register.module.css";
 

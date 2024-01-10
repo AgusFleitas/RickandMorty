@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
-import homeVideo from "../video/home.mp4";
+import homeVideo from "../../video/home.mp4";
 
 import style from "./Detail.module.css";
 

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import axios from "axios";
 
-import validate from "../Helpers/ResetValidations";
+import validate from "../../Helpers/ResetValidations";
 
 import style from "./ResetPassword.module.css";
 
