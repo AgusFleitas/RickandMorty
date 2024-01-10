@@ -39,6 +39,13 @@
   }
 }
 
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 350px;
+}
+
 .random {
   width: 150px;
   height: 70%;

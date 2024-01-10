@@ -130,6 +130,11 @@ const Nav = () => {
     }
   }
 
+  // Función para eliminar todos los personajes del Home.
+  function deleteAllHome () {
+    dispatch(setCharacters([]));
+  }
+
   // Cerrar sesión.
   function logoutHandler() {
     localStorage.removeItem("user");
@@ -152,6 +157,7 @@ const Nav = () => {
         <Link to='/about' title="Read more info about the autor of the website.">About</Link>
       </div>
       <SearchBar onSearch={searchHandler} />
+      <div className={style.buttons}>
       <button
         onClick={randomHandler}
         className={style.random}
@@ -160,6 +166,13 @@ const Nav = () => {
       >
         Add Random Char
       </button>
+      <button
+      className={style.random}
+      disabled={location.pathname !== "/home"}
+      onClick={deleteAllHome}
+      title="Click to delete all the characters in your Home."
+      >Delete All Char</button>
+      </div>
       {username ? (
         <div className={style.session}>
           <span className={style.welcome}>Hi, {username}!</span>
