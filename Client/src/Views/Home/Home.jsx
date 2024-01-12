@@ -1,7 +1,6 @@
 import { useSelector } from "react-redux";
 
 import Cards from "../../Components/Cards/Cards";
-import homeVideo from "../../video/home.mp4";
 
 import style from "./Home.module.css";
 
@@ -12,7 +11,7 @@ const Home = () => {
     <>
       <Cards characters={characters} />
       <div className={style.videoWrapper}>
-        <video src={homeVideo} autoPlay muted loop className={style.bgVideo} />
+        <video src={"https://res.cloudinary.com/dlahgnpwp/video/upload/v1705001475/cdaxsx5h2f54as6t41s6.mp4"} autoPlay muted loop className={style.bgVideo} />
       </div>
       {characters.length === 0 && (
         <span className={style.empty}>

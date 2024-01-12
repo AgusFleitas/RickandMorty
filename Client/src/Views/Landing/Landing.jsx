@@ -5,7 +5,6 @@ import axios from "axios";
 import "boxicons";
 
 import Notification from "../../Components/Notification/Notification";
-import landingVideo from "../../video/landing.mp4";
 import validate from "../../Helpers/LoginValidations";
 
 import style from "./Landing.module.css";
@@ -210,7 +209,7 @@ const Landing = () => {
       <div className={style.videoWrapper}>
         <video
           ref={videoRef}
-          src={landingVideo}
+          src={"https://res.cloudinary.com/dlahgnpwp/video/upload/v1705001475/wiexlvoznqtt5s1bcddp.mp4"}
           autoPlay
           muted
           loop

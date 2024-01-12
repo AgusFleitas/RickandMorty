@@ -3,8 +3,6 @@ import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
 
-import homeVideo from "../../video/home.mp4";
-
 import style from "./Detail.module.css";
 
 const Detail = () => {
@@ -66,7 +64,7 @@ const Detail = () => {
         </div>
       </div>
       <div className={style.videoWrapper}>
-        <video src={homeVideo} autoPlay muted loop className={style.bgVideo} />
+        <video src={"https://res.cloudinary.com/dlahgnpwp/video/upload/v1705001475/cdaxsx5h2f54as6t41s6.mp4"} autoPlay muted loop className={style.bgVideo} />
       </div>
     </div>
   );

@@ -143,7 +143,7 @@ const Nav = () => {
   }
 
   // Condicional para añadir una clase al body y deshabilitar momentaneamente la scrollbar.
-  if(showModal || showNotification || showNotifExist) {
+  if(showModal || showNotification || showNotifExist || showLogIn) {
     document.body.classList.add('activeModal')
   } else {
     document.body.classList.remove('activeModal')
