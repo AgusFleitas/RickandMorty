@@ -8,7 +8,7 @@ const server = express();
 server.use(morgan("dev"));
 server.use(express.json());
 server.use(cors({
-    origin: '*',
+    origin: 'https://rickandmorty-agusfleitas.up.railway.app',
   }));
 
 server.use(router);
