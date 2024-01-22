@@ -63,7 +63,7 @@ const Landing = () => {
   // Función de login.
   async function loginHandler(userData) {
     try {
-      const URL = "http://localhost:3001/loginNew";
+      const URL = "/loginNew";
       const { data } = await axios.post(URL, userData);
 
       if (data) {

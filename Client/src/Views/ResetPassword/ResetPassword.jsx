@@ -47,7 +47,7 @@ const ResetPassword = () => {
   const resetHandler = async (userPass) => {
     try {
       const decoded = jwtDecode(token);
-      const URL = "http://localhost:3001/reset-password";
+      const URL = "/reset-password";
       const response = await axios.put(URL, {
         email: decoded.email,
         newPassword: userPass.password,

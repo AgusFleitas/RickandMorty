@@ -12,7 +12,7 @@ import {
 import axios from "axios";
 
 export const searchById = (id) => {
-  const endpoint = `http://localhost:3001/character/${id}`
+  const endpoint = `/character/${id}`
 
   return async (dispatch) => {
     try {
@@ -44,7 +44,7 @@ export const setCharacters = (characters) => {
 }
 
 export const setFavs = (userID, userToken) => {
-  const endpoint = `http://localhost:3001/favcharacters`
+  const endpoint = `/favcharacters`
 
   return async (dispatch) => {
     try {
@@ -71,7 +71,7 @@ export const setFavs = (userID, userToken) => {
 };
 
 export const addFav = (userID, charID) => {
-  const endpoint = `http://localhost:3001/favcharacter`
+  const endpoint = `/favcharacter`
 
   return async (dispatch) => {
     try {
@@ -89,7 +89,7 @@ export const addFav = (userID, charID) => {
 };
 
 export const removeFav = (userID, charID) => {
-  const endpoint = "http://localhost:3001/favcharacter";
+  const endpoint = "/favcharacter";
 
   return async (dispatch) => {
     try {

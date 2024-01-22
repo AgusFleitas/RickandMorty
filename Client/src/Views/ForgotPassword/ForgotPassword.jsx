@@ -39,7 +39,7 @@ const ForgotPassword = () => {
 
   const forgotHandler = async (userEmail) => {
     try {
-      const URL = "http://localhost:3001/forgot-password";
+      const URL = "/forgot-password";
       const response = await axios.post(URL, userEmail);
 
       if (response.data) {

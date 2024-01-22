@@ -55,7 +55,7 @@ const Register = () => {
   // Función que realiza la solicitud de registro al servidor.
   const registerHandler = async (userData) => {
     try {
-      const URL = "http://localhost:3001/register";
+      const URL = "/register";
       const { data } = await axios.post(URL, userData);
 
       if (data) {

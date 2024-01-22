@@ -53,7 +53,7 @@ function Card(props) {
     if (storedUser) {
       const fetchData = async () => {
         try {
-          const response = await axios.get("http://localhost:3001/favcharacter", {
+          const response = await axios.get("/favcharacter", {
             params: {
               userID: storedUser.id,
               charID: character.id,
