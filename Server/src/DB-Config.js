@@ -5,11 +5,17 @@ const fs = require('fs');
 const path = require('path');
 // Carga de variables de entorno.
 const {
-    DB_USER, DB_PASSWORD, DB_HOST,
+    DB_USER, DB_PASSWORD, DB_HOST, DB_DEPLOY
   } = process.env;
 
  // Instancia de Sequelize. 
-  const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/rickandmorty`, {
+
+//   const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/rickandmorty`, {
+//   logging: false, 
+//   native: false, 
+// });
+
+  const sequelize = new Sequelize(DB_DEPLOY, {
   logging: false, 
   native: false, 
 });
