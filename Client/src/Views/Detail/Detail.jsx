@@ -23,42 +23,42 @@ const Detail = () => {
   return (
     <div className={style.detail}>
       <h1 className={style.title}>DETAILS ABOUT THE CHARACTER</h1>
-      <div class={style.wrapper}>
+      <div className={style.wrapper}>
         <h2>{character.name}</h2>
         <img src={character.image} alt='' />
-        <div class={style.otherdata}>
+        <div className={style.otherdata}>
           <span>ID: </span>
-          <div class={style.valuebox}>
+          <div className={style.valuebox}>
             <span>#{character.id}</span>
           </div>
         </div>
-        <div class={style.otherdata}>
+        <div className={style.otherdata}>
           <span>STATUS: </span>
-          <div class={style.valuebox}>
+          <div className={style.valuebox}>
             <span>{character.status}</span>
           </div>
         </div>
-        <div class={style.otherdata}>
+        <div className={style.otherdata}>
           <span>SPECIES: </span>
-          <div class={style.valuebox}>
+          <div className={style.valuebox}>
             <span>{character.species}</span>
           </div>
         </div>
-        <div class={style.otherdata}>
+        <div className={style.otherdata}>
           <span>GENDER: </span>
-          <div class={style.valuebox}>
+          <div className={style.valuebox}>
             <span>{character.gender}</span>
           </div>
         </div>
-        <div class={style.otherdata}>
+        <div className={style.otherdata}>
           <span>ORIGIN: </span>
-          <div class={style.valuebox}>
+          <div className={style.valuebox}>
             <span>{character.origin}</span>
           </div>
         </div>
-        <div class={style.otherdata}>
+        <div className={style.otherdata}>
           <span>LOCATION: </span>
-          <div class={style.valuebox}>
+          <div className={style.valuebox}>
             <span>{character.location}</span>
           </div>
         </div>
