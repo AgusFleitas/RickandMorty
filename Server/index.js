@@ -1,7 +1,8 @@
+require("dotenv").config();
 const server = require("./src/Server.js");
 const { conn } = require("./src/DB-Config.js");
 const initalUpload = require("./src/helpers/initDB.js");
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 const Reset = "\x1b[0m";
 const FgGreen = "\x1b[32m";
